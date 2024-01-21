@@ -1,0 +1,37 @@
+/* Asterisk wildcard selector to override default styles added by the browser */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* General styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Header */
+header {
+    display: flex;
+    background-color:cadetblue;
+}
+
+/* Main content */
+main {
+    background-color: antiquewhite;
+    /* Enlarge main element to push footer down*/
+    flex: 1 0 auto;
+
+    /* Enable flex properties for child elements */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Footer */
+footer {
+    background-color: rgb(253, 113, 113);
+    text-align: center;
+}
