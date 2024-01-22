@@ -1,3 +1,6 @@
+/*Import Google Font -  font-family: 'Unbounded', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap');
+
 /* Asterisk wildcard selector to override default styles added by the browser */
 * {
     padding: 0;
@@ -6,22 +9,24 @@
 }
 
 /* General styles */
+
 body {
+    background: url("../images/face.png") no-repeat center center/cover;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    font-family: 'Unbounded', sans-serif;  
+    color: white; 
 }
-
 
 /* Header */
 header {
     display: flex;
-    background-color:cadetblue;
-}
+} 
 
 /* Main content */
 main {
-    background-color: antiquewhite;
+
     /* Enlarge main element to push footer down*/
     flex: 1 0 auto;
 
@@ -32,6 +37,5 @@ main {
 
 /* Footer */
 footer {
-    background-color: rgb(253, 113, 113);
-    text-align: center;
+        text-align: center;
 }
