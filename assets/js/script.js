@@ -11,7 +11,7 @@ const phqQuestions = [
     /*9*/"Thoughts that you would be better off dead or of hurting yourself in some way"
 ];
 
-//Generalised Anxiety Disorder (GAD-7)
+// Generalised Anxiety Disorder (GAD-7)
 const gadQuestions = [
     /*1*/"Feeling nervous, anxious or on edge",
     /*2*/"Not being able to stop or control worrying",
@@ -20,6 +20,14 @@ const gadQuestions = [
     /*5*/"Being so restless that it is hard to sit still",
     /*6*/"Becoming easily annoyed or irritable",
     /*7*/"Feeling afraid as if something awful might happen"
+];
+
+// Possible answers 
+const answers = [
+    /*1*/"Not at all",
+    /*2*/"Several days",
+    /*3*/"More than half the days",
+    /*4*/"Nearly every day"
 ];
 
 //Common functions for PHQ-9 and GAD-7
