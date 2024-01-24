@@ -37,20 +37,23 @@ document.addEventListener("DOMContentLoaded", function() {
     let questionnaires = document.getElementsByClassName("questionnaires");
 
     for (let questionnaire of questionnaires) {
-        questionnaire.addEventListener("click", displayQuestionnaire);
+
+        questionnaire.addEventListener("click", function() {
+            if (questionnaire.getAttribute("id") === "phq9") {
+                for (let phqQuestion of phqQuestions) {
+                    console.log(phqQuestion);
+                }
+            } else if (questionnaire.getAttribute("id") === "gad7") {
+                for (let gadQuestion of gadQuestions) {
+                    console.log(gadQuestion);
+                }
+           }
+        });
     }
 
 })
 
-
 //Common functions for PHQ-9 and GAD-7
-
-/**
- * Displaying the appropriate questionnaire depending on what element was clicked.
- */
-function displayQuestionnaire() {
-}
-
 function displayQuestion() {
 }
 
