@@ -30,7 +30,27 @@ const answers = [
     /*4*/"Nearly every day"
 ];
 
+//Wait for the DOM to finish loading, before listening to questionnaire click event
+//Get the questionnaires by class name and event listeners to them
+document.addEventListener("DOMContentLoaded", function() {
+
+    let questionnaires = document.getElementsByClassName("questionnaires");
+
+    for (let questionnaire of questionnaires) {
+        questionnaire.addEventListener("click", displayQuestionnaire);
+    }
+
+})
+
+
 //Common functions for PHQ-9 and GAD-7
+
+/**
+ * Displaying the appropriate questionnaire depending on what element was clicked.
+ */
+function displayQuestionnaire() {
+}
+
 function displayQuestion() {
 }
 
