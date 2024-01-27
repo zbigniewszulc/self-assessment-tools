@@ -30,36 +30,36 @@ const answers = [
     /*4*/'Nearly every day'
 ];
 
-//counter for multistep form 
+// Counter for multistep form 
 let currentStep = 1;
 
-//Wait for the DOM to finish loading, before listening to questionnaire click event
-//Get the questionnaires by class name and event listeners to them
-document.addEventListener("DOMContentLoaded", function() {
+// User age - initiate with 0
+let userAge = 0;
 
-    //target htmlQuestionnaire section
-    let htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
-    
-    //declare variable to target questionnaires class
+// Wait for the DOM to finish loading, before listening to questionnaire click event
+// Get the questionnaires by class name and event listeners to them
+document.addEventListener("DOMContentLoaded", function() {
+  
+    // Declare variable to target questionnaires class
     let questionnaires = document.getElementsByClassName("questionnaires");
 
     for (let questionnaire of questionnaires) {
 
-        //change pointer cursor when hovering over any of the questionnaires
+        // Change pointer cursor when hovering over any of the questionnaires
         questionnaire.addEventListener("mouseover", function() {
-            //use 'this' keyword to know which element triggers the hover event
+            // Use 'this' keyword to know which element triggers the hover event
             this.style.cursor = "pointer";
         });
 
-        //set click event listener on the questionnaires
+        // Set click event listener on the questionnaires
         questionnaire.addEventListener("click", function() {
-            //reset the counter
+            // Reset the counter
             currentStep = 1;
-            //display generated form in 'htmlQuestionnaire' section 
+            // Display generated form in 'htmlQuestionnaire' section 
             if (questionnaire.getAttribute("id") === "phq9") {    
-                displayAnswers(phqQuestions);
+                displayQuestions(phqQuestions);
             } else if (questionnaire.getAttribute("id") === "gad7") {
-                displayAnswers(gadQuestions);
+                displayQuestions(gadQuestions);
            }
            else {
                 alert("We are sorry! There is an error with selected screening tool");
@@ -70,24 +70,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
 })
 
-//Common functions for PHQ-9 and GAD-7
+// Common functions for PHQ-9 and GAD-7
+
 /**
  * Generate and return HTML snippet of all questions
  * @param {Array} questions - Array of all questions in questionnaire
  */
-function generateHtmlQuestions(questions) {
-    //counter variable for purpose of generating unique id answers
+function generateMultistepForm(questions) {
+    // Counter variable for purpose of generating unique id answers
     let answerLoop = 0;
 
-    //declare html variable to store html snippet 
+    // Declare html variable to store html snippet 
     let html ='';
 
     html = `\n<h1>Over the last 2 weeks, how often have you been bothered by the following problems?</h1>`;
     html += `\n<form id="multistep-form" onsubmit="return false">`;
 
-    //loop through question
+    // Loop through question
     for (let i = 0; i < questions.length; i++) {
-        //set first step active
+        // Set first step active
         if (i === 0) {
             html += `\n<div id="step${i+1}" class="step active">`;
         } else {
@@ -106,7 +107,7 @@ function generateHtmlQuestions(questions) {
 
         html += `<p id="feedback${i}" class="feedback"></p>`;
 
-        //display submit button in the last iteration of the loop 
+        // Display submit button in the last iteration of the loop 
         if (i === 0) {
             html += `\n<button onclick="nextStep()">Next</button>`;
         } else if (i < questions.length - 1) {
@@ -129,9 +130,11 @@ function generateHtmlQuestions(questions) {
  * Display all questions
  * @param {Array} questions 
  */
-function displayAnswers(questions) {
+function displayQuestions(questions) {
 
-    htmlQuestionnaire.innerHTML = generateHtmlQuestions(questions);
+    // Target htmlQuestionnaire section
+    let htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
+    htmlQuestionnaire.innerHTML = generateMultistepForm(questions);
 
 }
 
@@ -170,11 +173,11 @@ function isChecked() {
     let radioGroup = document.getElementsByName(`answer${currentStep - 1}`);
     let checked = false;
 
-    //loop through the radio buttons to check if at least one is checked
+    // Loop through the radio buttons to check if at least one is checked
     for (let i = 0; i < radioGroup.length; i++) {
         if(radioGroup[i].checked === true) {
             checked = true;
-            //break loop if at least one radio button is checked
+            // Break loop if at least one radio button is checked
             break; 
         } 
     }
@@ -208,7 +211,7 @@ function clearFeeback(){
 function formSubmit(event) {
     
     if(isChecked()) {
-        event.preventDefault(); // prevent the form from submitting
+        event.preventDefault(); // Prevent the form from submitting
     } else {
         requestAnswer();
     }
