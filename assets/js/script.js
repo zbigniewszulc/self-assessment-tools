@@ -30,6 +30,8 @@ const answers = [
     /*4*/'Nearly every day'
 ];
 
+//counter for multistep form 
+let currentStep = 1;
 
 //Wait for the DOM to finish loading, before listening to questionnaire click event
 //Get the questionnaires by class name and event listeners to them
@@ -51,10 +53,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
         //set click event listener on the questionnaires
         questionnaire.addEventListener("click", function() {
-
+            //reset the counter
+            currentStep = 1;
             //display generated form in 'htmlQuestionnaire' section 
             if (questionnaire.getAttribute("id") === "phq9") {    
-                htmlQuestionnaire.innerHTML = generateHtmlQuestions(phqQuestions);;
+                htmlQuestionnaire.innerHTML = generateHtmlQuestions(phqQuestions);
             } else if (questionnaire.getAttribute("id") === "gad7") {
                 htmlQuestionnaire.innerHTML = generateHtmlQuestions(gadQuestions);
            }
@@ -66,9 +69,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 })
-
-
-
 
 //Common functions for PHQ-9 and GAD-7
 /**
@@ -124,10 +124,12 @@ function generateHtmlQuestions(questions) {
 
     return html;
 }
-let currentStep = 1;
 
+/**
+ * Set active class on next/previous element. Request answer if not provided.
+ */
 function nextStep() {
-
+    
     if (isChecked()) {
         document.getElementById('step' + currentStep).classList.remove('active');
         currentStep++;
@@ -138,17 +140,23 @@ function nextStep() {
 
 }
 
+/**
+ * Set active class on next/previous element
+ */
 function prevStep() {
+    
     document.getElementById('step' + currentStep).classList.remove('active');
     currentStep--;
     document.getElementById('step' + currentStep).classList.add('active');
+
 }
 
 /**
- * 
- * @returns {Boolean} Checking if answer has been selected, it display feedback if it was not
+ * Checking if answer has been selected, display feedback if it was not
+ * @returns {Boolean} 
  */
 function isChecked() {
+
     let radioGroup = document.getElementsByName(`answer${currentStep - 1}`);
     let checked = false;
 
@@ -162,23 +170,31 @@ function isChecked() {
     }
 
     return checked;
+
 }
 
 /**
- *  display feedback that answer has not been selected
+ * Display feedback that answer has not been selected
  */
 function requestAnswer() {
+
     document.getElementById(`feedback${currentStep - 1}`).innerText = "Please select your answer";
+
 }
 
 /**
-* Clears feedback section 
+*  Clears feedback section 
 */
 function clearFeeback(){
+
     document.getElementById(`feedback${currentStep - 1}`).textContent = "";
+
 };
 
-
+/**
+ * Takes control of form submission. Also ensures that the final question is answered.
+ * @event event 
+ */
 function formSubmit(event) {
     
     if(isChecked()) {
@@ -186,7 +202,7 @@ function formSubmit(event) {
     } else {
         requestAnswer();
     }
-  }
+}
 
 function displayAnswers() {
 }
@@ -202,5 +218,3 @@ function displayUserAnswers(){
 
 function displayResult() { 
 }
-
-const form = document.getElementById('multistep-form');
