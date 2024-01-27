@@ -30,15 +30,16 @@ const answers = [
     /*4*/'Nearly every day'
 ];
 
+
 //Wait for the DOM to finish loading, before listening to questionnaire click event
 //Get the questionnaires by class name and event listeners to them
 document.addEventListener("DOMContentLoaded", function() {
 
-//target htmlQuestionnaire section
-let htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
+    //target htmlQuestionnaire section
+    let htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
     
-//declare variable to target questionnaires class
-let questionnaires = document.getElementsByClassName("questionnaires");
+    //declare variable to target questionnaires class
+    let questionnaires = document.getElementsByClassName("questionnaires");
 
     for (let questionnaire of questionnaires) {
 
@@ -66,6 +67,9 @@ let questionnaires = document.getElementsByClassName("questionnaires");
 
 })
 
+
+
+
 //Common functions for PHQ-9 and GAD-7
 /**
  * Generate and return HTML snippet of all questions
@@ -78,34 +82,111 @@ function generateHtmlQuestions(questions) {
     //declare html variable to store html snippet 
     let html ='';
 
-    html = `<h1>Over the last 2 weeks, how often have you been bothered by the following problems?</h1>`;
-    html += `\n<form>`;
+    html = `\n<h1>Over the last 2 weeks, how often have you been bothered by the following problems?</h1>`;
+    html += `\n<form id="multistep-form" onsubmit="return false">`;
 
     //loop through question
     for (let i = 0; i < questions.length; i++) {
+        //set first step active
+        if (i === 0) {
+            html += `\n<div id="step${i+1}" class="step active">`;
+        } else {
+            html += `\n<div id="step${i+1}" class="step">`;
+        }
+        
         html += `\n<h2>${questions[i]}</h2>`;
      
         for (let j = 0; j < answers.length; j++) {
             html += `
-            <input type="radio" id="answer${answerLoop}" name="answer${i}" value="${answers[j]}">
+            <input type="radio" id="answer${answerLoop}" name="answer${i}" value="${answers[j]}" onclick="clearFeeback()">
             <label for="answer${answerLoop}">${answers[j]}</label><br>
             `;
             answerLoop++;
         }
 
+        html += `<p id="feedback${i}" class="feedback"></p>`;
+
         //display submit button in the last iteration of the loop 
-        if (i < questions.length - 1) {
-            html += '<input type="button" value="Next">';
+        if (i === 0) {
+            html += `\n<button onclick="nextStep()">Next</button>`;
+        } else if (i < questions.length - 1) {
+            html += '\n<button onclick="prevStep()">Previous</button>';
+            html += `\n<button onclick="nextStep()">Next</button>`;
         } else {
-            html += `<input type="submit" value="Submit">`;
+            html += '\n<button onclick="prevStep()">Previous</button>';
+            html += `\n<button type="submit" onclick="formSubmit(event)">Submit</button>`;
         }
-        
+
+        html += `\n</div>`;
     }
 
     html += '\n</form>\n';
 
     return html;
 }
+let currentStep = 1;
+
+function nextStep() {
+
+    if (isChecked()) {
+        document.getElementById('step' + currentStep).classList.remove('active');
+        currentStep++;
+        document.getElementById('step' + currentStep).classList.add('active');
+    } else {
+        requestAnswer();
+    }
+
+}
+
+function prevStep() {
+    document.getElementById('step' + currentStep).classList.remove('active');
+    currentStep--;
+    document.getElementById('step' + currentStep).classList.add('active');
+}
+
+/**
+ * 
+ * @returns {Boolean} Checking if answer has been selected, it display feedback if it was not
+ */
+function isChecked() {
+    let radioGroup = document.getElementsByName(`answer${currentStep - 1}`);
+    let checked = false;
+
+    //loop through the radio buttons to check if at least one is checked
+    for (let i = 0; i < radioGroup.length; i++) {
+        if(radioGroup[i].checked === true) {
+            checked = true;
+            //break loop if at least one radio button is checked
+            break; 
+        } 
+    }
+
+    return checked;
+}
+
+/**
+ *  display feedback that answer has not been selected
+ */
+function requestAnswer() {
+    document.getElementById(`feedback${currentStep - 1}`).innerText = "Please select your answer";
+}
+
+/**
+* Clears feedback section 
+*/
+function clearFeeback(){
+    document.getElementById(`feedback${currentStep - 1}`).textContent = "";
+};
+
+
+function formSubmit(event) {
+    
+    if(isChecked()) {
+        event.preventDefault(); // prevent the form from submitting
+    } else {
+        requestAnswer();
+    }
+  }
 
 function displayAnswers() {
 }
@@ -121,3 +202,5 @@ function displayUserAnswers(){
 
 function displayResult() { 
 }
+
+const form = document.getElementById('multistep-form');

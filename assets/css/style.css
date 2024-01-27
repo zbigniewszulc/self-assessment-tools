@@ -36,6 +36,18 @@ main {
     flex-direction: column;
 }
 
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+button {
+    cursor: pointer;
+}
+
 /* Footer */
 footer {
     font-family: 'Fjalla One', sans-serif;
