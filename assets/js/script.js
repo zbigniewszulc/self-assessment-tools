@@ -57,9 +57,9 @@ document.addEventListener("DOMContentLoaded", function() {
             currentStep = 1;
             //display generated form in 'htmlQuestionnaire' section 
             if (questionnaire.getAttribute("id") === "phq9") {    
-                htmlQuestionnaire.innerHTML = generateHtmlQuestions(phqQuestions);
+                displayAnswers(phqQuestions);
             } else if (questionnaire.getAttribute("id") === "gad7") {
-                htmlQuestionnaire.innerHTML = generateHtmlQuestions(gadQuestions);
+                displayAnswers(gadQuestions);
            }
            else {
                 alert("We are sorry! There is an error with selected screening tool");
@@ -123,6 +123,16 @@ function generateHtmlQuestions(questions) {
     html += '\n</form>\n';
 
     return html;
+}
+
+/**
+ * Display all questions
+ * @param {Array} questions 
+ */
+function displayAnswers(questions) {
+
+    htmlQuestionnaire.innerHTML = generateHtmlQuestions(questions);
+
 }
 
 /**
@@ -202,9 +212,6 @@ function formSubmit(event) {
     } else {
         requestAnswer();
     }
-}
-
-function displayAnswers() {
 }
 
 function collectAnswer() {
