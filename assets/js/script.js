@@ -321,6 +321,10 @@ function formSubmit(event) {
     }
 }
 
+/**
+ * Collect user answers and save in 'userResponses' array
+ * @param {Event} event 
+ */
 function collectAnswers(event) {
 
     let formId = event.target.parentNode.parentNode.getAttribute("id");
@@ -346,5 +350,3 @@ function collectAnswers(event) {
     }        
 
 }
-
-
