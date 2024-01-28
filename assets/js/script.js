@@ -31,10 +31,16 @@ let currentStep = 1;
 // User age - initiate with -1. Nobody can be older than -1
 let userAge = -1;
 
-//target age related sections
+// Declare age related variables
 let ageForm;
 let userAgeFeedback;
 let ageProvided = false;
+
+// Declare array for user answers
+let userResponses = [];
+
+// Target htmlQuestionnaire section
+let htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
 
 // Wait for the DOM to finish loading, before listening to questionnaire click event
 // Get the questionnaires by class name and event listeners to them
@@ -54,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //target questionnaire id
             let questionnaireId = this.getAttribute("id");
             //clear questionnaire
-            document.getElementById("htmlQuestionnaire").innerHTML = "";
+            htmlQuestionnaire.innerHTML = "";
             // Reset the counter
             currentStep = 1;
 
@@ -89,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     function checkAgeAndProceed(questionnaireId, questions) {
         if (canIproceed(questionnaireId, userAge) === true) {
-            displayQuestions(questions);
+            displayQuestions(questions, questionnaireId);
         } else {
             askUserAge();
 
@@ -104,13 +110,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Attach event listener to user age form
             ageForm.addEventListener("submit", function (event) {
-                // this is one of the way of passing two arguments to call back function
+                // this is one of the way of passing two arguments (inlcuding 'event') to call back function
                 let handlingOutcome = handleAgeSubmit(event, questionnaireId);
 
                 if (handlingOutcome === true) {
                     ageForm.innerHTML = "";
                     userAgeFeedback.innerHTML = "";
-                    displayQuestions(questions);
+                    displayQuestions(questions, questionnaireId);
                 } else {
                     userAgeFeedback.innerHTML = handlingOutcome;
                 }
@@ -147,7 +153,8 @@ document.addEventListener("DOMContentLoaded", function () {
      * Handle user age form when submit button pressed
      */
     function handleAgeSubmit(event, questionnaireId) {
-        event.preventDefault(); // Prevent the form from native submitting
+        // Prevent the form from default submitting action
+        event.preventDefault();
         userAge = document.getElementById("age").value; //get the value the user provided
         return canIproceed(questionnaireId, userAge);
     }
@@ -178,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
      * Generate and return HTML snippet of all questions
      * @param {Array} questions - Array of all questions in questionnaire
      */
-    function multistepForm(questions) {
+    function multistepForm(questions, questionnaireId) {
         // Counter variable for purpose of generating unique id answers
         let answerLoop = 0;
 
@@ -186,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let html = "";
 
         html = `\n<h1>Over the last 2 weeks, how often have you been bothered by the following problems?</h1>`;
-        html += `\n<form id="multistep-form" onsubmit="return false">`;
+        html += `\n<form id="multistep-form-${questionnaireId}" onsubmit="return false">`;
 
         // Loop through question
         for (let i = 0; i < questions.length; i++) {
@@ -232,13 +239,11 @@ document.addEventListener("DOMContentLoaded", function () {
      * Display all questions
      * @param {Array} questions
      */
-    function displayQuestions(questions) {
-        // Target htmlQuestionnaire section
-        let htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
-        htmlQuestionnaire.innerHTML = multistepForm(questions);
+    function displayQuestions(questions, questionnaireId) {
+        htmlQuestionnaire.innerHTML = multistepForm(questions, questionnaireId);
     }
 
-    function collectAnswer() {}
+    
 
     function calculateTotal() {}
 
@@ -284,18 +289,6 @@ function clearFeedback() {
 }
 
 /**
- * Takes control of form submission. Also ensures that the final question is answered.
- * @event event
- */
-function formSubmit(event) {
-    if (isChecked()) {
-        event.preventDefault(); // Prevent the form from submitting
-    } else {
-        requestAnswer();
-    }
-}
-
-/**
  * Checking if answer has been selected, display feedback if it was not
  * @returns {Boolean}
  */
@@ -311,4 +304,47 @@ function isChecked() {
         }
     }
     return checked;
+} 
+
+/**
+ * Takes control of form submission. Also ensures that the final question is answered.
+ * @event event
+ */
+function formSubmit(event) {
+    if (isChecked()) {
+        // Prevent the form from default submitting action
+        event.preventDefault();
+        collectAnswers(event);
+
+    } else {
+        requestAnswer();
+    }
 }
+
+function collectAnswers(event) {
+
+    let formId = event.target.parentNode.parentNode.getAttribute("id");
+    let form = document.getElementById(formId);
+    userResponses = [];
+    let phq9Length = phqQuestions.length;
+    let gad7Length = gadQuestions.length;
+
+    if (formId === "multistep-form-phq9") {
+
+        for(let i = 0; i < phq9Length; i++) {
+            userResponses.push(form.querySelector('input[name="answer' + i + '"]:checked').value);
+        }
+
+    }
+
+    if (formId === "multistep-form-gad7") {
+
+        for(let i = 0; i < gad7Length; i++) {
+            userResponses.push(form.querySelector('input[name="answer' + i + '"]:checked').value);
+        }
+        
+    }        
+
+}
+
+
