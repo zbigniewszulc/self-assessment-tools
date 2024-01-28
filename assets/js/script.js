@@ -33,8 +33,13 @@ const answers = [
 // Counter for multistep form 
 let currentStep = 1;
 
-// User age - initiate with 0
-let userAge = 0;
+// User age - initiate with -1. Nobody can be older than -1
+let userAge = -1;
+
+//target age related sections
+let ageForm;
+let userAgeFeedback;
+let ageProvided = false;
 
 // Wait for the DOM to finish loading, before listening to questionnaire click event
 // Get the questionnaires by class name and event listeners to them
@@ -53,96 +58,217 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Set click event listener on the questionnaires
         questionnaire.addEventListener("click", function() {
+            //target questionnaire id
+            let questionnaireId = this.getAttribute("id");
+            //clear questionnaire
+            document.getElementById("htmlQuestionnaire").innerHTML = "";
             // Reset the counter
             currentStep = 1;
-            // Display generated form in 'htmlQuestionnaire' section 
-            if (questionnaire.getAttribute("id") === "phq9") {    
-                displayQuestions(phqQuestions);
-            } else if (questionnaire.getAttribute("id") === "gad7") {
-                displayQuestions(gadQuestions);
+            //clear content if age form was previously displayed
+            if (ageForm) {
+                ageForm.innerHTML = "";
+            } 
+            // clear text in user age feedback under the age form
+            if (userAgeFeedback) {
+                userAgeFeedback.innerHTML = "";
+            } 
+
+            // Ask for user age and display generated form in 'htmlQuestionnaire' section 
+            if (questionnaireId === "phq9") { 
+                checkAgeAndProceed(questionnaireId, phqQuestions);
+            } else if ( questionnaireId === "gad7")  {
+                checkAgeAndProceed(questionnaireId, gadQuestions);
            }
            else {
                 alert("We are sorry! There is an error with selected screening tool");
            }
+
         });
 
     }
 
-})
+    // Common functions for PHQ-9 and GAD-7
 
-// Common functions for PHQ-9 and GAD-7
+    function checkAgeAndProceed(questionnaireId, questions) {
 
-/**
- * Generate and return HTML snippet of all questions
- * @param {Array} questions - Array of all questions in questionnaire
- */
-function generateMultistepForm(questions) {
-    // Counter variable for purpose of generating unique id answers
-    let answerLoop = 0;
+        if (canIproceed(questionnaireId, userAge) === true) {
 
-    // Declare html variable to store html snippet 
-    let html ='';
+            displayQuestions(questions);
 
-    html = `\n<h1>Over the last 2 weeks, how often have you been bothered by the following problems?</h1>`;
-    html += `\n<form id="multistep-form" onsubmit="return false">`;
-
-    // Loop through question
-    for (let i = 0; i < questions.length; i++) {
-        // Set first step active
-        if (i === 0) {
-            html += `\n<div id="step${i+1}" class="step active">`;
         } else {
-            html += `\n<div id="step${i+1}" class="step">`;
-        }
-        
-        html += `\n<h2>${questions[i]}</h2>`;
-     
-        for (let j = 0; j < answers.length; j++) {
-            html += `
-            <input type="radio" id="answer${answerLoop}" name="answer${i}" value="${answers[j]}" onclick="clearFeeback()">
-            <label for="answer${answerLoop}">${answers[j]}</label><br>
-            `;
-            answerLoop++;
-        }
 
-        html += `<p id="feedback${i}" class="feedback"></p>`;
+            askUserAge();  
+            
+            //target age related sections
+            ageForm = document.getElementById('ageForm');
+            userAgeFeedback = document.getElementById("userAgeFeedback");
+            let responseFromCaniProceed = canIproceed(questionnaireId, userAge);
+            //set the feedback again if it was provided already at least once
+            if ( responseFromCaniProceed !== true && userAge > -1) {
+                userAgeFeedback.innerHTML = responseFromCaniProceed;
+            }
 
-        // Display submit button in the last iteration of the loop 
-        if (i === 0) {
-            html += `\n<button onclick="nextStep()">Next</button>`;
-        } else if (i < questions.length - 1) {
-            html += '\n<button onclick="prevStep()">Previous</button>';
-            html += `\n<button onclick="nextStep()">Next</button>`;
-        } else {
-            html += '\n<button onclick="prevStep()">Previous</button>';
-            html += `\n<button type="submit" onclick="formSubmit(event)">Submit</button>`;
+            // Attach event listener to user age form
+            ageForm.addEventListener('submit', function(event) { // this is one of the way of passing two arguments to call back function  
+                let handlingOutcome = handleAgeSubmit(event, questionnaireId);
+
+                if ( handlingOutcome === true) {
+                    ageForm.innerHTML = '';
+                    userAgeFeedback.innerHTML = "";
+                    displayQuestions(questions);
+                } else {
+                    userAgeFeedback.innerHTML = handlingOutcome;
+                }
+            });
         }
-
-        html += `\n</div>`;
+         
     }
 
-    html += '\n</form>\n';
+    /**
+     * Display user age form
+     */
+    function askUserAge() {
 
-    return html;
-}
+        document.getElementById("userAge").innerHTML = userAgeForm();
 
-/**
- * Display all questions
- * @param {Array} questions 
- */
-function displayQuestions(questions) {
+    }
 
-    // Target htmlQuestionnaire section
-    let htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
-    htmlQuestionnaire.innerHTML = generateMultistepForm(questions);
+    /**
+     * Generate user age form
+     * @returns html 
+     */
+    function userAgeForm() {
 
-}
+        let html = '';
 
-/**
- * Set active class on next/previous element. Request answer if not provided.
- */
-function nextStep() {
+        html = `
+        <form id="ageForm">
+          <label for="age">What is your age?</label>
+          <input type="number" id="age" name="age" min="0" max="100" required>
+          <button type="submit">Submit</button>
+        </form>
+        `;
+
+        return html;
+    }
+
+    /**
+     * Handle user age form when submit button pressed
+     */
+    function handleAgeSubmit(event, questionnaireId) {
+
+        event.preventDefault(); // Prevent the form from native submitting
+        userAge = document.getElementById("age").value; //get the value the user provided
+        return canIproceed(questionnaireId, userAge);
+
+    }
+
+    /**
+     * 
+     * @param {String} questionnaireId 
+     * @returns {Boolean, String}
+     */
+    function canIproceed(questionnaireId, userAge) {
+
+        if(questionnaireId === "phq9") {
+            let minAge = 13;
+            return userAge >= minAge ? true : `Based on the provided details, your age is ${userAge}. If it is incorrect amend your age accordingly. Please be aware that this questionnaire is intended for individuals ${minAge} years and older. You can try the <a href="https://changes.ie/wp-content/uploads/2022/02/Patient-Health-Questionnaire-Adult-PHQ-9.pdf" target="_blank" rel="noopener noreferrer">PHQ-A questionnaire for adolescents</a> for more suitable options.`;
+        } else if (questionnaireId === "gad7") {
+            let minAge = 12;
+            return userAge >= minAge ? true : `Based on the provided details, your age is ${userAge}. If it is incorrect amend your age accordingly. Please be aware that this questionnaire is intended for individuals ${minAge} years and older. For more information, you can visit <a href='https://mentalhealth.ie/generalised-anxiety-disorder' target='_blank' rel='noopener noreferrer'>this link</a>.`;
+        } else {
+            return "Error occured within handle age submit form. Form clicked is not defined";
+        }
+
+    }
     
+    /**
+     * Generate and return HTML snippet of all questions
+     * @param {Array} questions - Array of all questions in questionnaire
+     */
+    function multistepForm(questions) {
+
+        // Counter variable for purpose of generating unique id answers
+        let answerLoop = 0;
+
+        // Declare html variable to store html snippet 
+        let html ='';
+
+        html = `\n<h1>Over the last 2 weeks, how often have you been bothered by the following problems?</h1>`;
+        html += `\n<form id="multistep-form" onsubmit="return false">`;
+
+        // Loop through question
+        for (let i = 0; i < questions.length; i++) {
+            // Set first step active
+            if (i === 0) {
+                html += `\n<div id="step${i+1}" class="step active">`;
+            } else {
+                html += `\n<div id="step${i+1}" class="step">`;
+            }
+
+            html += `\n<h2>${questions[i]}</h2>`;
+        
+            for (let j = 0; j < answers.length; j++) {
+                html += `
+                <input type="radio" id="answer${answerLoop}" name="answer${i}" value="${answers[j]}" onclick="clearFeedback()">
+                <label for="answer${answerLoop}">${answers[j]}</label><br>
+                `;
+                answerLoop++;
+            }
+
+            html += `<p id="feedback${i}" class="feedback"></p>`;
+
+            // Display submit button in the last iteration of the loop 
+            if (i === 0) {
+                html += `\n<button onclick="nextStep()">Next</button>`;
+            } else if (i < questions.length - 1) {
+                html += '\n<button onclick="prevStep()">Previous</button>';
+                html += `\n<button onclick="nextStep()">Next</button>`;
+            } else {
+                html += '\n<button onclick="prevStep()">Previous</button>';
+                html += `\n<button type="submit"  onclick="formSubmit(event)">Submit</button>`;
+            }
+
+            html += `\n</div>`;
+        }
+
+        html += '\n</form>\n';
+
+        return html;
+
+    }
+
+    /**
+     * Display all questions
+     * @param {Array} questions 
+     */
+    function displayQuestions(questions) {
+
+        // Target htmlQuestionnaire section
+        let htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
+        htmlQuestionnaire.innerHTML = multistepForm(questions);
+
+    }
+
+    function collectAnswer() {
+    }
+
+    function calculateTotal() {
+    }
+
+    function displayUserAnswers(){
+    }
+
+    function displayResult() { 
+    }
+
+})
+
+/**
+     * Set active class on sibling element when next button clicked. Request answer if not provided.
+     */
+function nextStep() {
+
     if (isChecked()) {
         document.getElementById('step' + currentStep).classList.remove('active');
         currentStep++;
@@ -154,13 +280,45 @@ function nextStep() {
 }
 
 /**
- * Set active class on next/previous element
+ * Set active class on sibling element when previous butoon clicked
  */
 function prevStep() {
-    
+
     document.getElementById('step' + currentStep).classList.remove('active');
     currentStep--;
     document.getElementById('step' + currentStep).classList.add('active');
+
+}
+
+/**
+* Display feedback that answer has not been selected
+*/
+function requestAnswer() {
+
+    document.getElementById(`feedback${currentStep - 1}`).innerText = "Please select your answer";
+
+}
+
+/**
+*  Clears feedback section 
+*/
+function clearFeedback(){
+
+    document.getElementById(`feedback${currentStep - 1}`).textContent = "";
+
+};
+
+/**
+* Takes control of form submission. Also ensures that the final question is answered.
+* @event event 
+*/
+function formSubmit(event) {
+
+    if(isChecked()) {
+        event.preventDefault(); // Prevent the form from submitting
+    } else {
+        requestAnswer();
+    }
 
 }
 
@@ -172,7 +330,6 @@ function isChecked() {
 
     let radioGroup = document.getElementsByName(`answer${currentStep - 1}`);
     let checked = false;
-
     // Loop through the radio buttons to check if at least one is checked
     for (let i = 0; i < radioGroup.length; i++) {
         if(radioGroup[i].checked === true) {
@@ -181,50 +338,6 @@ function isChecked() {
             break; 
         } 
     }
-
     return checked;
 
-}
-
-/**
- * Display feedback that answer has not been selected
- */
-function requestAnswer() {
-
-    document.getElementById(`feedback${currentStep - 1}`).innerText = "Please select your answer";
-
-}
-
-/**
-*  Clears feedback section 
-*/
-function clearFeeback(){
-
-    document.getElementById(`feedback${currentStep - 1}`).textContent = "";
-
-};
-
-/**
- * Takes control of form submission. Also ensures that the final question is answered.
- * @event event 
- */
-function formSubmit(event) {
-    
-    if(isChecked()) {
-        event.preventDefault(); // Prevent the form from submitting
-    } else {
-        requestAnswer();
-    }
-}
-
-function collectAnswer() {
-}
-
-function calculateTotal() {
-}
-
-function displayUserAnswers(){
-}
-
-function displayResult() { 
 }
