@@ -64,11 +64,13 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("htmlQuestionnaire").innerHTML = "";
             // Reset the counter
             currentStep = 1;
-            //clear content if age form was previously displayed
+
+            //if age form was previously displayed on screen, clear the content 
             if (ageForm) {
                 ageForm.innerHTML = "";
             } 
-            // clear text in user age feedback under the age form
+
+            // clear text in user age feedback under the age form, only if previously was displayed on screen
             if (userAgeFeedback) {
                 userAgeFeedback.innerHTML = "";
             } 
@@ -88,7 +90,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Common functions for PHQ-9 and GAD-7
-
+    /**
+     * Prompt the user to provide their age if it was not provided earlier.
+     * Verify the user-provided details against the age criteria.
+     * If the criteria are met, display the requested questionnaire
+     * @param {String} questionnaireId 
+     * @param {Array} questions 
+     */
     function checkAgeAndProceed(questionnaireId, questions) {
 
         if (canIproceed(questionnaireId, userAge) === true) {
@@ -125,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     /**
-     * Display user age form
+     * Target user age form and fill in with HTMl snippet
      */
     function askUserAge() {
 
@@ -135,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /**
      * Generate user age form
-     * @returns html 
+     * @returns html - HTML snipppet 
      */
     function userAgeForm() {
 
@@ -164,9 +172,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     /**
-     * 
+     * Verify if the age criteria are met and provide feedback if necessary.
+     * Return 'true' if the criteria are met.
      * @param {String} questionnaireId 
-     * @returns {Boolean, String}
+     * @returns {Boolean, String} - 'True' - if age criteria are met. String - feedback.
      */
     function canIproceed(questionnaireId, userAge) {
 
@@ -265,8 +274,8 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 /**
-     * Set active class on sibling element when next button clicked. Request answer if not provided.
-     */
+* Set active class on sibling element when next button clicked. Request answer if not provided.
+*/
 function nextStep() {
 
     if (isChecked()) {
@@ -280,8 +289,8 @@ function nextStep() {
 }
 
 /**
- * Set active class on sibling element when previous butoon clicked
- */
+* Set active class on sibling element when previous butoon clicked
+*/
 function prevStep() {
 
     document.getElementById('step' + currentStep).classList.remove('active');
@@ -300,7 +309,7 @@ function requestAnswer() {
 }
 
 /**
-*  Clears feedback section 
+*  Clear feedback section 
 */
 function clearFeedback(){
 
