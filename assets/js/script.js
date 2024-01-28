@@ -1,29 +1,34 @@
 // Patient Health Questionnaire 9-item depression scale (PHQ-9)
 const phqQuestions = [
-    /*1*/ "Little interest or pleasure in doing things",
-    /*2*/ "Feeling down, depressed, or hopeless",
-    /*3*/ "Trouble falling or staying asleep, or sleeping too much",
-    /*4*/ "Feeling tired or having little energy",
-    /*5*/ "Poor appetite or overeating",
-    /*6*/ "Feeling bad about yourself — or that you are a failure or have let yourself or your family down",
-    /*7*/ "Trouble concentrating on things, such as reading the newspaper or watching television",
-    /*8*/ "Moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual",
-    /*9*/ "Thoughts that you would be better off dead or of hurting yourself in some way",
+    /*0*/ "Little interest or pleasure in doing things",
+    /*1*/ "Feeling down, depressed, or hopeless",
+    /*2*/ "Trouble falling or staying asleep, or sleeping too much",
+    /*3*/ "Feeling tired or having little energy",
+    /*4*/ "Poor appetite or overeating",
+    /*5*/ "Feeling bad about yourself — or that you are a failure or have let yourself or your family down",
+    /*6*/ "Trouble concentrating on things, such as reading the newspaper or watching television",
+    /*7*/ "Moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual",
+    /*8*/ "Thoughts that you would be better off dead or of hurting yourself in some way",
 ];
 
 // Generalised Anxiety Disorder (GAD-7)
 const gadQuestions = [
-    /*1*/ "Feeling nervous, anxious or on edge",
-    /*2*/ "Not being able to stop or control worrying",
-    /*3*/ "Worrying too much about different things",
-    /*4*/ "Trouble relaxing",
-    /*5*/ "Being so restless that it is hard to sit still",
-    /*6*/ "Becoming easily annoyed or irritable",
-    /*7*/ "Feeling afraid as if something awful might happen",
+    /*0*/ "Feeling nervous, anxious or on edge",
+    /*1*/ "Not being able to stop or control worrying",
+    /*2*/ "Worrying too much about different things",
+    /*3*/ "Trouble relaxing",
+    /*4*/ "Being so restless that it is hard to sit still",
+    /*5*/ "Becoming easily annoyed or irritable",
+    /*6*/ "Feeling afraid as if something awful might happen",
 ];
 
-// Possible answers
-const answers = [/*1*/ "Not at all", /*2*/ "Several days", /*3*/ "More than half the days", /*4*/ "Nearly every day"];
+// Allowed answers with score mapping
+const answers = [
+    ["Not at all", 0],
+    ["Several days", 1],
+    ["More than half the days", 2],
+    ["Nearly every day", 3],
+];
 
 // Counter for multistep form
 let currentStep = 1;
@@ -60,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //target questionnaire id
             let questionnaireId = this.getAttribute("id");
             //clear questionnaire
-            htmlQuestionnaire.innerHTML = "";
+            clearHtmlQuestionnaire();
             // Reset the counter
             currentStep = 1;
 
@@ -206,10 +211,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             html += `\n<h2>${questions[i]}</h2>`;
 
+            // Loop throught two dimensional array. Use first index only.
             for (let j = 0; j < answers.length; j++) {
                 html += `
-                <input type="radio" id="answer${answerLoop}" name="answer${i}" value="${answers[j]}" onclick="clearFeedback()">
-                <label for="answer${answerLoop}">${answers[j]}</label><br>
+                <input type="radio" id="answer${answerLoop}" name="answer${i}" value="${answers[j][0]}" onclick="clearFeedback()">
+                <label for="answer${answerLoop}">${answers[j][0]}</label><br>
                 `;
                 answerLoop++;
             }
@@ -242,14 +248,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function displayQuestions(questions, questionnaireId) {
         htmlQuestionnaire.innerHTML = multistepForm(questions, questionnaireId);
     }
-
-    
-
-    function calculateTotal() {}
-
-    function displayUserAnswers() {}
-
-    function displayResult() {}
 });
 
 /**
@@ -304,7 +302,7 @@ function isChecked() {
         }
     }
     return checked;
-} 
+}
 
 /**
  * Takes control of form submission. Also ensures that the final question is answered.
@@ -315,18 +313,16 @@ function formSubmit(event) {
         // Prevent the form from default submitting action
         event.preventDefault();
         collectAnswers(event);
-
     } else {
         requestAnswer();
     }
 }
 
 /**
- * Collect user answers and save in 'userResponses' array
- * @param {Event} event 
+ * Collect user answers and save in variable 'userResponses' array
+ * @param {Event} event
  */
 function collectAnswers(event) {
-
     let formId = event.target.parentNode.parentNode.getAttribute("id");
     let form = document.getElementById(formId);
     userResponses = [];
@@ -334,19 +330,47 @@ function collectAnswers(event) {
     let gad7Length = gadQuestions.length;
 
     if (formId === "multistep-form-phq9") {
-
-        for(let i = 0; i < phq9Length; i++) {
+        for (let i = 0; i < phq9Length; i++) {
             userResponses.push(form.querySelector('input[name="answer' + i + '"]:checked').value);
         }
 
+        clearHtmlQuestionnaire();
     }
 
     if (formId === "multistep-form-gad7") {
-
-        for(let i = 0; i < gad7Length; i++) {
+        for (let i = 0; i < gad7Length; i++) {
             userResponses.push(form.querySelector('input[name="answer' + i + '"]:checked').value);
         }
-        
-    }        
 
+        clearHtmlQuestionnaire();
+    }
+}
+
+/**
+ * Calculate score
+ * @returns {Number} - score
+ */
+function getScore() {
+    let score = 0;
+
+    userResponses.forEach(function (value) {
+        for (let i = 0; i < answers.length; i++) {
+            if (value === answers[i][0]) {
+                score += answers[i][1];
+            }
+        }
+    });
+
+    return score;
+}
+
+function displayResult() {}
+
+function displayUserAnswers() {}
+
+/**
+ * Clear 'htmlQuestionnaire' section
+ */
+function clearHtmlQuestionnaire() {
+    htmlQuestionnaire.innerHTML = "";
 }
