@@ -30,6 +30,7 @@ const answers = [
     ["Nearly every day", 3],
 ];
 
+// Severity stage
 const phqSeverity = [
     ["0-4", "Minimal or no depression symptoms"],
     ["5-9", "Mild depression symptoms"],
@@ -116,8 +117,9 @@ document.addEventListener("DOMContentLoaded", function () {
         questionnaire.addEventListener("click", function () {
             //target questionnaire id
             let questionnaireId = this.getAttribute("id");
-            //clear questionnaire
+            //clear sections
             clearHtmlQuestionnaire();
+            clearScoreSection();
             // Reset the counter
             currentStep = 1;
 
@@ -418,6 +420,10 @@ function getScore() {
     return score;
 }
 
+/**
+ * Generate HTML and display result on screen
+ * @param {Event} event 
+ */
 function displayResult(event) {
     const scoreSection = document.getElementById("score");
     const formId = event.target.parentNode.parentNode.getAttribute("id");
@@ -443,6 +449,11 @@ function displayResult(event) {
     scoreSection.innerHTML = html;
 }
 
+/**
+ * Calculates the iteration number in which it appears in the array based on the result.
+ * @param {String} severity 
+ * @returns {Number} scoreIteration
+ */
 function getIterationNo(severity) {
     let score = getScore();
     let splitSeverity = [];
@@ -466,6 +477,11 @@ function getIterationNo(severity) {
     return scoreIteration;
 }
 
+/**
+ * Returns reference to appopriate severity array
+ * @param {String} formId 
+ * @returns {String} severity
+ */
 function getSeverity(formId) {
     let severity;
 
@@ -480,6 +496,11 @@ function getSeverity(formId) {
     return severity;
 }
 
+/**
+ * Returns reference to appopriate recommendation array
+ * @param {String} formId 
+ * @returns {String} recommendation
+ */
 function getRecommendations(formId) {
     let recommendation;
 
@@ -494,11 +515,18 @@ function getRecommendations(formId) {
     return recommendation;
 }
 
-function displayUserAnswers() {}
-
 /**
  * Clear 'htmlQuestionnaire' section
  */
 function clearHtmlQuestionnaire() {
     htmlQuestionnaire.innerHTML = "";
 }
+
+/**
+ * Clear 'score' section
+ */
+function clearScoreSection(){
+    document.getElementById("score").innerHTML = "";
+}
+
+function displayUserAnswers() {}
