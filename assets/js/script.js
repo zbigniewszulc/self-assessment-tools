@@ -106,6 +106,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Declare variable to target questionnaires class
     let questionnaires = document.getElementsByClassName("questionnaires");
 
+    // Set event listener to target 'Enter' keydown event, wchich by default submits the form
+    htmlQuestionnaire.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" ) {
+            // Prevent the default behavior of form submission
+            event.preventDefault();
+        }
+    });
+
     for (let questionnaire of questionnaires) {
         // Change pointer cursor when hovering over any of the questionnaires
         questionnaire.addEventListener("mouseover", function () {
@@ -283,8 +291,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 html += '\n<button onclick="prevStep()">Previous</button>';
                 html += `\n<button onclick="nextStep()">Next</button>`;
             } else {
-                html += '\n<button onclick="prevStep()">Previous</button>';
-                html += `\n<button type="submit" onclick="formSubmit(event)">Submit</button>`;
+                html += `\n<button onclick="prevStep()">Previous</button>`;
+                html += `\n<button type="submit" onclick="formSubmit(event)" >Submit</button>`;
             }
 
             html += `\n</div>`;
@@ -528,5 +536,3 @@ function clearHtmlQuestionnaire() {
 function clearScoreSection() {
     document.getElementById("score").innerHTML = "";
 }
-
-function displayUserAnswers() {}
