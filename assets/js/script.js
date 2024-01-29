@@ -30,6 +30,22 @@ const answers = [
     ["Nearly every day", 3],
 ];
 
+const phqSeverity = [
+    ["0-4", "Minimal or no depression symptoms"],
+    ["5-9", "Mild depression symptoms"],
+    ["10-14", "Moderate depression symptoms"],
+    ["15-27", "Moderately severe to severe depression symptoms"],
+];
+
+const phqRecommendations = [
+    ["0-4", "If you score in this range, it's generally not necessary to visit a doctor solely based on your PHQ-9 score. However, if you have other concerns about your mental health or well-being, it's always a good idea to discuss them with a healthcare professional"],
+    ["5-9", "If you score in this range, it's recommended to consider seeking medical advice. While your symptoms may be mild, they could still benefit from professional assessment and support. Your doctor can help determine the best course of action, which may include monitoring your symptoms, counselling, or other treatment options."],
+    ["10-14", "If you score in this range, it's advisable to seek medical attention. Moderate depression symptoms may significantly impact your daily functioning and quality of life. Your doctor can provide a thorough evaluation, offer support, and discuss treatment options such as therapy, medication, or a combination of both."],
+    ["15-27", "If you score in this range, it's crucial to seek medical help promptly. These scores indicate a higher severity of depressive symptoms that may require more intensive intervention. Your doctor can conduct a comprehensive assessment, provide appropriate treatment, and ensure you receive the support you need to manage your symptoms effectively."]
+];
+
+// console.log(phqSeverity);
+
 // Counter for multistep form
 let currentStep = 1;
 
@@ -313,6 +329,7 @@ function formSubmit(event) {
         // Prevent the form from default submitting action
         event.preventDefault();
         collectAnswers(event);
+        displayResult(event);
     } else {
         requestAnswer();
     }
@@ -326,11 +343,9 @@ function collectAnswers(event) {
     let formId = event.target.parentNode.parentNode.getAttribute("id");
     let form = document.getElementById(formId);
     userResponses = [];
-    let phq9Length = phqQuestions.length;
-    let gad7Length = gadQuestions.length;
 
     if (formId === "multistep-form-phq9") {
-        for (let i = 0; i < phq9Length; i++) {
+        for (let i = 0; i < phqQuestions.length; i++) {
             userResponses.push(form.querySelector('input[name="answer' + i + '"]:checked').value);
         }
 
@@ -338,7 +353,7 @@ function collectAnswers(event) {
     }
 
     if (formId === "multistep-form-gad7") {
-        for (let i = 0; i < gad7Length; i++) {
+        for (let i = 0; i < gadQuestions.length; i++) {
             userResponses.push(form.querySelector('input[name="answer' + i + '"]:checked').value);
         }
 
@@ -353,6 +368,8 @@ function collectAnswers(event) {
 function getScore() {
     let score = 0;
 
+    // Based on user responses check in possible answer array if value exist
+    // if exist, map the score which is stored in two dimensional table
     userResponses.forEach(function (value) {
         for (let i = 0; i < answers.length; i++) {
             if (value === answers[i][0]) {
@@ -360,11 +377,56 @@ function getScore() {
             }
         }
     });
+    console.log(`Score: ${score}`);
 
     return score;
 }
 
-function displayResult() {}
+function displayResult(event) {
+    let scoreSection = document.getElementById("score");
+    let html = "<p>Based on the answers provided and scoring according to PHQ-9, the results are as follows: </p>";
+    let formId = event.target.parentNode.parentNode.getAttribute("id");
+    let scoreIteration = getIterationNo(formId);
+
+    html += `<p>Severity: ${phqSeverity[scoreIteration][1]}</p>`;    
+
+    html += `<p>Recommendation: ${phqRecommendations[scoreIteration][1]}</p>`;
+
+    scoreSection.innerHTML = html;
+
+}
+
+function getIterationNo(formId) {
+    let score = getScore();
+    let splitSeverity = [];
+    let scoreIteration = 0;
+    let severity;
+    let min = 0;
+    let max = 0;
+
+    if (formId === "multistep-form-phq9") {
+        severity = phqSeverity;
+    } else if (formId === "multistep-form-gad7") {
+        // severity = gadSeverity;
+    } else {
+        alert("Error: there was some error occured with the questionnaire submitted.");
+    }
+
+    for (let i = 0; i < severity.length; i++) {
+        splitSeverity.push(severity[i][0].split("-"));
+    }
+
+    for (let i = 0; i < splitSeverity.length; i++) {
+        min = splitSeverity[i][0];
+        max = splitSeverity[i][1];
+
+        if (score >= min && score <= max) {
+            scoreIteration = i;
+        }
+    }
+
+    return scoreIteration;
+}
 
 function displayUserAnswers() {}
 
