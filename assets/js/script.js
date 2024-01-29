@@ -38,13 +38,49 @@ const phqSeverity = [
 ];
 
 const phqRecommendations = [
-    ["0-4", "If you score in this range, it's generally not necessary to visit a doctor solely based on your PHQ-9 score. However, if you have other concerns about your mental health or well-being, it's always a good idea to discuss them with a healthcare professional"],
-    ["5-9", "If you score in this range, it's recommended to consider seeking medical advice. While your symptoms may be mild, they could still benefit from professional assessment and support. Your doctor can help determine the best course of action, which may include monitoring your symptoms, counselling, or other treatment options."],
-    ["10-14", "If you score in this range, it's advisable to seek medical attention. Moderate depression symptoms may significantly impact your daily functioning and quality of life. Your doctor can provide a thorough evaluation, offer support, and discuss treatment options such as therapy, medication, or a combination of both."],
-    ["15-27", "If you score in this range, it's crucial to seek medical help promptly. These scores indicate a higher severity of depressive symptoms that may require more intensive intervention. Your doctor can conduct a comprehensive assessment, provide appropriate treatment, and ensure you receive the support you need to manage your symptoms effectively."]
+    [
+        "0-4",
+        "If you score in this range, it's generally not necessary to visit a doctor solely based on your PHQ-9 score. However, if you have other concerns about your mental health or well-being, it's always a good idea to discuss them with a healthcare professional",
+    ],
+    [
+        "5-9",
+        "If you score in this range, it's recommended to consider seeking medical advice. While your symptoms may be mild, they could still benefit from professional assessment and support. Your doctor can help determine the best course of action, which may include monitoring your symptoms, counselling, or other treatment options.",
+    ],
+    [
+        "10-14",
+        "If you score in this range, it's advisable to seek medical attention. Moderate depression symptoms may significantly impact your daily functioning and quality of life. Your doctor can provide a thorough evaluation, offer support, and discuss treatment options such as therapy, medication, or a combination of both.",
+    ],
+    [
+        "15-27",
+        "If you score in this range, it's crucial to seek medical help promptly. These scores indicate a higher severity of depressive symptoms that may require more intensive intervention. Your doctor can conduct a comprehensive assessment, provide appropriate treatment, and ensure you receive the support you need to manage your symptoms effectively.",
+    ],
 ];
 
-// console.log(phqSeverity);
+const gadSeverity = [
+    ["0-4", "Minimal or no anxiety symptoms"],
+    ["5-9", "Mild anxiety symptoms"],
+    ["10-14", "Moderate anxiety symptoms "],
+    ["15-27", "Severe anxiety symptoms"],
+];
+
+const gadRecommendations = [
+    [
+        "0-4",
+        "If you score in this range, it's typically not necessary to visit a doctor solely based on your GAD-7 score. However, if you have other concerns about your mental health or well-being, it's always a good idea to discuss them with a healthcare professional.",
+    ],
+    [
+        "5-9",
+        "If you score in this range, it's recommended to consider seeking medical advice. Mild anxiety symptoms may still impact your daily life and well-being. Your doctor can provide guidance, support, and discuss potential treatment options, such as therapy or lifestyle changes.",
+    ],
+    [
+        "10-14",
+        "If you score in this range, it's advisable to seek medical attention. Moderate anxiety symptoms may significantly affect your quality of life and functioning. Your doctor can conduct a comprehensive evaluation, offer treatment options, and help you manage your symptoms effectively.",
+    ],
+    [
+        "15-27",
+        "If you score in this range, it's crucial to seek medical help promptly. Severe anxiety symptoms can be debilitating and may require professional intervention. Your doctor can provide urgent support, recommend appropriate treatment, and help you develop coping strategies to manage your symptoms.",
+    ],
+];
 
 // Counter for multistep form
 let currentStep = 1;
@@ -383,34 +419,36 @@ function getScore() {
 }
 
 function displayResult(event) {
-    let scoreSection = document.getElementById("score");
-    let html = "<p>Based on the answers provided and scoring according to PHQ-9, the results are as follows: </p>";
-    let formId = event.target.parentNode.parentNode.getAttribute("id");
-    let scoreIteration = getIterationNo(formId);
+    const scoreSection = document.getElementById("score");
+    const formId = event.target.parentNode.parentNode.getAttribute("id");
+    //return value from anonymous function
+    const questionnaire = (function() {
+        if (formId.includes("phq9")) {
+            return "PHQ-9";
+        }
+        if (formId.includes("gad7")) {
+            return "GAD-7";
+        }
+    })();
 
-    html += `<p>Severity: ${phqSeverity[scoreIteration][1]}</p>`;    
+    let severity = getSeverity(formId);
+    let recommendation = getRecommendations(formId);
+    let scoreIteration = getIterationNo(severity);
+    let html = `<p>Based on the answers provided and scoring according to ${questionnaire}, the results are as follows: </p>`;
 
-    html += `<p>Recommendation: ${phqRecommendations[scoreIteration][1]}</p>`;
+    html += `<p>Severity: ${severity[scoreIteration][1]}</p>`;
+
+    html += `<p>Recommendation: ${recommendation[scoreIteration][1]}</p>`;
 
     scoreSection.innerHTML = html;
-
 }
 
-function getIterationNo(formId) {
+function getIterationNo(severity) {
     let score = getScore();
     let splitSeverity = [];
     let scoreIteration = 0;
-    let severity;
     let min = 0;
     let max = 0;
-
-    if (formId === "multistep-form-phq9") {
-        severity = phqSeverity;
-    } else if (formId === "multistep-form-gad7") {
-        // severity = gadSeverity;
-    } else {
-        alert("Error: there was some error occured with the questionnaire submitted.");
-    }
 
     for (let i = 0; i < severity.length; i++) {
         splitSeverity.push(severity[i][0].split("-"));
@@ -426,6 +464,34 @@ function getIterationNo(formId) {
     }
 
     return scoreIteration;
+}
+
+function getSeverity(formId) {
+    let severity;
+
+    if (formId === "multistep-form-phq9") {
+        severity = phqSeverity;
+    }
+
+    if (formId === "multistep-form-gad7") {
+        severity = gadSeverity;
+    }
+
+    return severity;
+}
+
+function getRecommendations(formId) {
+    let recommendation;
+
+    if (formId === "multistep-form-phq9") {
+        recommendation = phqRecommendations;
+    }
+
+    if (formId === "multistep-form-gad7") {
+        recommendation = gadRecommendations;
+    }
+
+    return recommendation;
 }
 
 function displayUserAnswers() {}
