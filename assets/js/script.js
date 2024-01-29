@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 html += `\n<button onclick="nextStep()">Next</button>`;
             } else {
                 html += '\n<button onclick="prevStep()">Previous</button>';
-                html += `\n<button type="submit"  onclick="formSubmit(event)">Submit</button>`;
+                html += `\n<button type="submit" onclick="formSubmit(event)">Submit</button>`;
             }
 
             html += `\n</div>`;
@@ -308,6 +308,8 @@ document.addEventListener("DOMContentLoaded", function () {
  * Set active class on sibling element when next button clicked. Request answer if not provided.
  */
 function nextStep() {
+    // let formName = htmlQuestionnaire.querySelector("form").getAttribute("id");
+
     if (isChecked()) {
         document.getElementById("step" + currentStep).classList.remove("active");
         currentStep++;
@@ -415,20 +417,19 @@ function getScore() {
             }
         }
     });
-    console.log(`Score: ${score}`);
 
     return score;
 }
 
 /**
  * Generate HTML and display result on screen
- * @param {Event} event 
+ * @param {Event} event
  */
 function displayResult(event) {
     const scoreSection = document.getElementById("score");
     const formId = event.target.parentNode.parentNode.getAttribute("id");
     //return value from anonymous function
-    const questionnaire = (function() {
+    const questionnaire = (function () {
         if (formId.includes("phq9")) {
             return "PHQ-9";
         }
@@ -436,12 +437,12 @@ function displayResult(event) {
             return "GAD-7";
         }
     })();
-
+    let score = getScore();
     let severity = getSeverity(formId);
     let recommendation = getRecommendations(formId);
-    let scoreIteration = getIterationNo(severity);
+    let scoreIteration = getIterationNo(score, severity);
     let html = `<p>Based on the answers provided and scoring according to ${questionnaire}, the results are as follows: </p>`;
-
+    html += `<p>Score: ${score}</p>`;
     html += `<p>Severity: ${severity[scoreIteration][1]}</p>`;
 
     html += `<p>Recommendation: ${recommendation[scoreIteration][1]}</p>`;
@@ -451,11 +452,10 @@ function displayResult(event) {
 
 /**
  * Calculates the iteration number in which it appears in the array based on the result.
- * @param {String} severity 
+ * @param {String} severity
  * @returns {Number} scoreIteration
  */
-function getIterationNo(severity) {
-    let score = getScore();
+function getIterationNo(score, severity) {
     let splitSeverity = [];
     let scoreIteration = 0;
     let min = 0;
@@ -479,7 +479,7 @@ function getIterationNo(severity) {
 
 /**
  * Returns reference to appopriate severity array
- * @param {String} formId 
+ * @param {String} formId
  * @returns {String} severity
  */
 function getSeverity(formId) {
@@ -498,7 +498,7 @@ function getSeverity(formId) {
 
 /**
  * Returns reference to appopriate recommendation array
- * @param {String} formId 
+ * @param {String} formId
  * @returns {String} recommendation
  */
 function getRecommendations(formId) {
@@ -525,7 +525,7 @@ function clearHtmlQuestionnaire() {
 /**
  * Clear 'score' section
  */
-function clearScoreSection(){
+function clearScoreSection() {
     document.getElementById("score").innerHTML = "";
 }
 
