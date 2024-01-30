@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <form id="ageForm">
           <label for="age">What is your age?</label>
           <input type="number" id="age" name="age" min="0" max="100" required>
-          <button type="submit">Confirm</button>
+          <button type="submit" class="brown">Confirm</button>
         </form>
         `;
 
@@ -298,13 +298,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Display submit button in the last iteration of the loop
             if (i === 0) {
-                html += `\n<button onclick="nextStep()">Next</button>`;
+                html += `\n<button onclick="nextStep()" class="brown">Next</button>`;
             } else if (i < questions.length - 1) {
-                html += '\n<button onclick="prevStep()">Previous</button>';
-                html += `\n<button onclick="nextStep()">Next</button>`;
+                html += '\n<button onclick="prevStep()" class="brown">Previous</button>';
+                html += `\n<button onclick="nextStep()" class="brown">Next</button>`;
             } else {
-                html += `\n<button onclick="prevStep()">Previous</button>`;
-                html += `\n<button type="submit" onclick="formSubmit(event)" >Submit</button>`;
+                html += `\n<button onclick="prevStep()" class="brown">Previous</button>`;
+                html += `\n<button type="submit" onclick="formSubmit(event)" class="brown">Submit</button>`;
             }
 
             html += `\n</div>\</div>`;
@@ -400,7 +400,7 @@ function formSubmit(event) {
  * @param {Event} event
  */
 function collectAnswers(event) {
-    let formId = event.target.parentNode.parentNode.getAttribute("id");
+    let formId = event.target.parentNode.parentNode.parentNode.getAttribute("id");
     let form = document.getElementById(formId);
     userResponses = [];
 

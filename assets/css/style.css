@@ -10,31 +10,38 @@
 
 /* General styles */
 body {
-    background: url("../images/face.png") no-repeat center center/cover;
+    /* background: url("../images/face.png") no-repeat center center/cover; */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     font-family: 'Unbounded', sans-serif;
-    color: white;
-    margin: 10px;
-    backdrop-filter: blur(1.7px);
+    /*  Global font color  */
+    color: rgb(245, 241, 241);
+    /* Secondary text color (black) */
+    /* color: rgb(23, 15, 15); */
+    /* Secondary background color */
+    /* background-color: rgb(239, 211, 211); */
+    /* backdrop-filter: blur(1.7px); */
 }
 
 a {
     text-decoration: none;
-    color: gold;
+    color: rgb(138, 93, 93);
+    font-weight: bolder;
+    font-size: 115%;
+}
+
+i {
+    text-align: center;
+    padding: 25px;
 }
 
 /* Header */
 header {
     display: flex;
     flex-direction: column;
-    padding: 5px;
-}
-
-header h1 {
-    font-size: 1.5em;
-    color: whitesmoke;
+    padding: 30px;
+    background-color: rgb(138, 93, 93);
 }
 
 /* Main content */
@@ -44,53 +51,56 @@ main {
     /* Enable flex properties for child elements */
     display: flex;
     flex-direction: column;
-    margin-bottom: 40px;
 }
 
 section {
-    margin: 10px;
-    padding: 7px 13px;
-    background-color: rgba(116, 173, 177, 0.832);
-}
-
-section h1 {
-    font-size: 1.15em;
-    font-family: 'Fjalla One', sans-serif;
-    letter-spacing: .1em;
+    /* margin: 10px; */
+    padding: 30px;
+    /* background-color: rgb(255 255 255 / 85%);    */
+    /* color: rgba(0, 0, 0, 0.954); */
 }
 
 section:empty {
-    background-color: transparent;
+    /* background-color: transparent; */
+}
+
+.light-pink {
+    background-color: rgb(239, 211, 211);
+    color: rgb(23, 15, 15);
+}
+
+.brown {
+    background-color: rgb(138, 93, 93);
+}
+
+.questionnaires {
+    font-size: 1.2em;
 }
 
 form {
-    line-height: 2.35em;
+    line-height: 2.3em;
     text-align: center;
+    color: rgb(23, 15, 15);
 }
 
 form h2 {
-    color: rgba(255, 217, 0, 0.943);
+    margin: 15px 5px;
 }
 
-input {
+#ageForm input {
     display: block;
-    margin-bottom: 15px;
-    margin-left: auto;
-    margin-right: auto;
-    min-width: 33%;
+    margin: 20px auto 20px auto;
+    min-width: 88px;
     text-align: center;
-    padding: 8px 2px 8px 2px;
+    padding: 10px 2px 10px 2px;
 }
 
 button {
-    min-width: 35%;
     cursor: pointer;
     display: block;
-    background-color: #14494c;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border: none;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 25px auto 25px auto;
     color: white;
 }
 
@@ -106,28 +116,40 @@ button {
     display: block;
 }
 
-.feedback {
+#userAgeFeedback {
     margin: 27px 5px;
-    color: gold;
-    font-family: 'Fjalla One', sans-serif;
-    font-size: 1.3em;
+    color: rgb(23, 15, 15);
+    line-height: 1.7;
+}
+
+.feedback {
+    color: brown;
+    padding: 15px 0;
+    font-weight: 600;
 }
 
 .group {
     display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    background-color: #317b8044;
-    padding-left: 20px;
+    justify-content: space-evenly;
+    margin: 15px 5px;
+}
+
+#score {
+    color: rgb(23, 15, 15);
+    line-height: 1.7;
 }
 
 #htmlQuestionnaire {
-    padding: 20px 10px;
+    padding: 35px 10px;
+}
+
+#htmlQuestionnaire h1 {
+    font-family: 'Fjalla One', sans-serif;
+    color: rgb(23, 15, 15);
 }
 
 #htmlQuestionnaire h2 {
-    margin: 20px 5px;
+    margin: 30px 5px;
 }
 
 #htmlQuestionnaire form {
@@ -139,9 +161,9 @@ button {
 }
 
 #htmlQuestionnaire input[type="radio"] {
- width: 18px;
- height: 18px;
- cursor: pointer;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
 }
 
 /* Footer */
@@ -149,9 +171,7 @@ footer {
     font-family: 'Fjalla One', sans-serif;
     font-size: .88em;
     text-align: center;
-    background-color: rgb(255 142 142 / 67%);
+    background-color: #ffe6a7;
     padding: 10px 15px;
-    margin: -15px;
-    line-height: 1.7em;
-    color: rgba(31, 30, 30, 0.993);   
+    color: rgb(23, 15, 15);
 }
