@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Set event listener to target 'Enter' keydown event, wchich by default submits the form
     htmlQuestionnaire.addEventListener("keydown", function (event) {
-        if (event.key === "Enter" ) {
+        if (event.key === "Enter") {
             // Prevent the default behavior of form submission
             event.preventDefault();
         }
@@ -130,6 +130,14 @@ document.addEventListener("DOMContentLoaded", function () {
             clearScoreSection();
             // Reset the counter
             currentStep = 1;
+
+            if (questionnaireId === "phq9") {
+                document.getElementById("gad7").parentNode.style.display = "none";
+            }
+
+            if (questionnaireId === "gad7") {
+                document.getElementById("phq9").parentNode.style.display = "none";
+            }
 
             //if age form was previously displayed on screen, clear the content
             if (ageForm) {
@@ -182,7 +190,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (handlingOutcome === true) {
                     ageForm.innerHTML = "";
-                    userAgeFeedback.innerHTML = "";
+                    ageForm.parentNode.style.display = "none";
+                    userAgeFeedback.style.display = "none";
                     displayQuestions(questions, questionnaireId);
                 } else {
                     userAgeFeedback.innerHTML = handlingOutcome;
@@ -209,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <form id="ageForm">
           <label for="age">What is your age?</label>
           <input type="number" id="age" name="age" min="0" max="100" required>
-          <button type="submit">Submit</button>
+          <button type="submit">Confirm</button>
         </form>
         `;
 
@@ -275,14 +284,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Loop throught two dimensional array. Use first index only.
             for (let j = 0; j < answers.length; j++) {
-                html += `
+                html += `<div class="group">
+                <label for="answer${answerLoop}">${answers[j][0]}</label>
                 <input type="radio" id="answer${answerLoop}" name="answer${i}" value="${answers[j][0]}" onclick="clearFeedback()">
-                <label for="answer${answerLoop}">${answers[j][0]}</label><br>
-                `;
+                </div>`;
                 answerLoop++;
             }
 
             html += `<p id="feedback${i}" class="feedback"></p>`;
+            html += `<div class="buttons">`;
 
             // Display submit button in the last iteration of the loop
             if (i === 0) {
@@ -295,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 html += `\n<button type="submit" onclick="formSubmit(event)" >Submit</button>`;
             }
 
-            html += `\n</div>`;
+            html += `\n</div>\</div>`;
         }
 
         html += "\n</form>\n";
@@ -435,7 +445,7 @@ function getScore() {
  */
 function displayResult(event) {
     const scoreSection = document.getElementById("score");
-    const formId = event.target.parentNode.parentNode.getAttribute("id");
+    const formId = event.target.parentNode.parentNode.parentNode.getAttribute("id");
     //return value from anonymous function
     const questionnaire = (function () {
         if (formId.includes("phq9")) {

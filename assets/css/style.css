@@ -9,31 +9,91 @@
 }
 
 /* General styles */
-
 body {
     background: url("../images/face.png") no-repeat center center/cover;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: 'Unbounded', sans-serif;  
-    color: white; 
+    font-family: 'Unbounded', sans-serif;
+    color: white;
+    margin: 10px;
+    backdrop-filter: blur(1.7px);
+}
+
+a {
+    text-decoration: none;
+    color: gold;
 }
 
 /* Header */
 header {
     display: flex;
     flex-direction: column;
-} 
+    padding: 5px;
+}
+
+header h1 {
+    font-size: 1.5em;
+    color: whitesmoke;
+}
 
 /* Main content */
 main {
-
     /* Enlarge main element to push footer down*/
     flex: 1 0 auto;
-
     /* Enable flex properties for child elements */
     display: flex;
     flex-direction: column;
+}
+
+section {
+    margin: 10px;
+    padding: 7px 13px;
+    background-color: rgba(116, 173, 177, 0.832);
+}
+
+section h1 {
+    font-size: 1.15em;
+    font-family: 'Fjalla One', sans-serif;
+    letter-spacing: .1em;
+}
+
+section:empty {
+    background-color: transparent;
+}
+
+form {
+    line-height: 2.35em;
+    text-align: center;
+}
+
+form h2 {
+    color: rgba(255, 217, 0, 0.943);
+}
+
+input {
+    display: block;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 33%;
+    text-align: center;
+}
+
+button {
+    min-width: 35%;
+    cursor: pointer;
+    display: block;
+    background-color: #14494c;
+    padding: 10px 15px;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.buttons {
+    display: flex;
 }
 
 .step {
@@ -44,8 +104,42 @@ main {
     display: block;
 }
 
-button {
-    cursor: pointer;
+.feedback {
+    margin: 27px 5px;
+    color: gold;
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 1.3em;
+}
+
+.group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #317b8044;
+    padding-left: 20px;
+}
+
+#htmlQuestionnaire {
+    padding: 20px 10px;
+}
+
+#htmlQuestionnaire h2 {
+    margin: 20px 5px;
+}
+
+#htmlQuestionnaire form {
+    text-align: left;
+}
+
+#htmlQuestionnaire input {
+    margin: auto 0 auto auto;
+}
+
+#htmlQuestionnaire input[type="radio"] {
+ width: 18px;
+ height: 18px;
+ cursor: pointer;
 }
 
 /* Footer */
@@ -53,6 +147,9 @@ footer {
     font-family: 'Fjalla One', sans-serif;
     font-size: .88em;
     text-align: center;
-    background-color:rgba(132, 10, 10, 0.679);
-    padding: 10px;
+    background-color: rgba(251, 40, 40, 0.674);
+    padding: 10px 15px;
+    margin: -15px;
+    line-height: 1.7em;
+    color: rgba(31, 30, 30, 0.993);   
 }
