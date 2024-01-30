@@ -116,6 +116,10 @@ button {
     display: block;
 }
 
+#userAge {
+    display: none;
+}
+
 #userAgeFeedback {
     margin: 27px 5px;
     color: rgb(23, 15, 15);

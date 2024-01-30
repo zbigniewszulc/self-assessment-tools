@@ -204,6 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
      * Target user age form and fill in with HTMl snippet
      */
     function askUserAge() {
+        document.getElementById("userAge").style.display = "block";
         document.getElementById("userAge").innerHTML = userAgeForm();
         //set focus on input  type number after ageForm is loaded
         document.getElementById("age").focus();
