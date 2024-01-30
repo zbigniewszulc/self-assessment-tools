@@ -205,6 +205,8 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     function askUserAge() {
         document.getElementById("userAge").innerHTML = userAgeForm();
+        //set focus on input  type number after ageForm is loaded
+        document.getElementById("age").focus();
     }
 
     /**

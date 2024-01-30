@@ -44,6 +44,7 @@ main {
     /* Enable flex properties for child elements */
     display: flex;
     flex-direction: column;
+    margin-bottom: 40px;
 }
 
 section {
@@ -78,6 +79,7 @@ input {
     margin-right: auto;
     min-width: 33%;
     text-align: center;
+    padding: 8px 2px 8px 2px;
 }
 
 button {
@@ -147,7 +149,7 @@ footer {
     font-family: 'Fjalla One', sans-serif;
     font-size: .88em;
     text-align: center;
-    background-color: rgba(251, 40, 40, 0.674);
+    background-color: rgb(255 142 142 / 67%);
     padding: 10px 15px;
     margin: -15px;
     line-height: 1.7em;
