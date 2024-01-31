@@ -100,7 +100,7 @@ let userResponses = [];
 // Target htmlQuestionnaire section
 const htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
 // Target return button
-const returnBtn = document.getElementById("return-btn");
+const homeBtn = document.getElementById("homeBtn");
 
 // Wait for the DOM to finish loading, before listening to questionnaire click event
 // Get the questionnaires by class name and event listeners to them
@@ -186,8 +186,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 userAgeFeedback.innerHTML = responseFromCaniProceed;
             }
 
-            returnBtn.style.display = "block";
-            returnBtn.innerHTML = getReturnButton();
+            homeBtn.style.display = "block";
+            homeBtn.innerHTML = getHomeButton();
 
             // Attach event listener to user age form
             ageForm.addEventListener("submit", function (event) {
@@ -398,8 +398,6 @@ function formSubmit(event) {
         collectAnswers(event);
         htmlQuestionnaire.style.display = "none";
         displayResult(event);
-        returnBtn.style.display = "block";
-        returnBtn.innerHTML = getHomeButton();
     } else {
         requestAnswer();
     }
@@ -544,12 +542,6 @@ function getRecommendations(formId) {
     }
 
     return recommendation;
-}
-
-function getReturnButton() {
-    let html = `<button class="brown" onclick="history.back()"><i class="fa-solid fa-rotate-left fa-lg"></i>Return</button>`;
-
-    return html;
 }
 
 function getHomeButton() {
