@@ -145,6 +145,7 @@ button {
 }
 
 #htmlQuestionnaire {
+    display: none;
     padding: 35px 10px;
 }
 

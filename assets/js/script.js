@@ -323,6 +323,7 @@ document.addEventListener("DOMContentLoaded", function () {
      * @param {Array} questions
      */
     function displayQuestions(questions, questionnaireId) {
+        htmlQuestionnaire.style.display = "block";
         htmlQuestionnaire.innerHTML = multistepForm(questions, questionnaireId);
     }
 });
