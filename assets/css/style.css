@@ -181,8 +181,9 @@ button {
     cursor: pointer;
 }
 
-#return-btn i{
-    padding: 10px;;
+#return-btn{
+    display: none;
+    padding: 10px;
 }
 
 /* Footer */

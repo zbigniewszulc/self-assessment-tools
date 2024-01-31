@@ -98,7 +98,9 @@ let ageProvided = false;
 let userResponses = [];
 
 // Target htmlQuestionnaire section
-let htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
+const htmlQuestionnaire = document.getElementById("htmlQuestionnaire");
+// Target return button
+const returnBtn = document.getElementById("return-btn");
 
 // Wait for the DOM to finish loading, before listening to questionnaire click event
 // Get the questionnaires by class name and event listeners to them
@@ -184,7 +186,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 userAgeFeedback.innerHTML = responseFromCaniProceed;
             }
 
-            document.getElementById("return-btn").innerHTML = getReturnButton();
+            returnBtn.style.display = "block";
+            returnBtn.innerHTML = getReturnButton();
 
             // Attach event listener to user age form
             ageForm.addEventListener("submit", function (event) {
@@ -395,7 +398,8 @@ function formSubmit(event) {
         collectAnswers(event);
         htmlQuestionnaire.style.display = "none";
         displayResult(event);
-        document.getElementById("return-btn").innerHTML = getHomeButton();
+        returnBtn.style.display = "block";
+        returnBtn.innerHTML = getHomeButton();
     } else {
         requestAnswer();
     }
@@ -552,7 +556,6 @@ function getHomeButton() {
     let html = `<button class="brown" onclick="window.location = '/' "><i class="fa-solid fa-house fa-lg"></i>Home</button>`;
     return html;
 }
-
 
 /**
  * Clear 'htmlQuestionnaire' section
