@@ -470,10 +470,10 @@ function displayResult(event) {
     let recommendation = getRecommendations(formId);
     let scoreIteration = getIterationNo(score, severity);
     let html = `<p>Based on the answers provided and scoring according to ${questionnaire}, the results are as follows: </p>`;
-    html += `<p>Score: ${score}</p>`;
-    html += `<p>Severity: ${severity[scoreIteration][1]}</p>`;
+    html += `<p><strong>Score:</strong> ${score}</p>`;
+    html += `<p><strong>Severity:</strong> ${severity[scoreIteration][1]}</p>`;
 
-    html += `<p>Recommendation: ${recommendation[scoreIteration][1]}</p>`;
+    html += `<p><strong>Recommendation:</strong> ${recommendation[scoreIteration][1]}</p>`;
 
     scoreSection.style.display = "block";
     scoreSection.innerHTML = html;
