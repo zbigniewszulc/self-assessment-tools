@@ -179,7 +179,6 @@ document.addEventListener("DOMContentLoaded", function () {
             //target age related sections
             ageForm = document.getElementById("ageForm");
             userAgeFeedback = document.getElementById("userAgeFeedback");
-            userAgeFeedback.style.display = "block";
             let responseFromCaniProceed = canIproceed(questionnaireId, userAge);
             //set the feedback again if it was provided already at least once
             if (responseFromCaniProceed !== true && userAge > -1) {
@@ -200,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     userAgeFeedback.style.display = "none";
                     displayQuestions(questions, questionnaireId);
                 } else {
+                    userAgeFeedback.style.display = "block";
                     userAgeFeedback.innerHTML = handlingOutcome;
                 }
             });
