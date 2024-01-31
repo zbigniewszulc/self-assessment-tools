@@ -121,6 +121,7 @@ button {
 }
 
 #userAgeFeedback {
+    display: none;
     margin: 27px 5px;
     color: rgb(23, 15, 15);
     line-height: 1.7;

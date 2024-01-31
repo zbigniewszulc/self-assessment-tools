@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 userAgeFeedback.innerHTML = "";
             }
 
-            // Ask for user age and display generated form in 'htmlQuestionnaire' section
+            // Check what questionnaire was triggered, find related questins and pass it as arguments to anoder function
             if (questionnaireId === "phq9") {
                 checkAgeAndProceed(questionnaireId, phqQuestions);
             } else if (questionnaireId === "gad7") {
@@ -177,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //target age related sections
             ageForm = document.getElementById("ageForm");
             userAgeFeedback = document.getElementById("userAgeFeedback");
+            userAgeFeedback.style.display = "block";
             let responseFromCaniProceed = canIproceed(questionnaireId, userAge);
             //set the feedback again if it was provided already at least once
             if (responseFromCaniProceed !== true && userAge > -1) {
@@ -202,6 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /**
      * Target user age form and fill in with HTMl snippet
+     * It will display element first as by default it is hidden
      */
     function askUserAge() {
         document.getElementById("userAge").style.display = "block";
