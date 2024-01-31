@@ -550,7 +550,7 @@ function getRecommendations(formId) {
 }
 
 function getHomeButton() {
-    let html = `<button class="brown" onclick="window.location = '/' "><i class="fa-solid fa-house fa-lg"></i>Home</button>`;
+    let html = `<button class="brown" onclick="window.location='https://zbigniewszulc.github.io/self-assessment-tools/'"><i class="fa-solid fa-house fa-lg"></i>Home</button>`;
     return html;
 }
 
