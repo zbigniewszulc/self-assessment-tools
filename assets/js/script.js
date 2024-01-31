@@ -393,6 +393,7 @@ function formSubmit(event) {
         // Prevent the form from default submitting action
         event.preventDefault();
         collectAnswers(event);
+        htmlQuestionnaire.style.display = "none";
         displayResult(event);
     } else {
         requestAnswer();
