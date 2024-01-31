@@ -108,6 +108,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Declare variable to target questionnaires class
     let questionnaires = document.getElementsByClassName("questionnaires");
 
+    // Set event listener to target logo, when pressed it opens landing page
+    document.getElementById("logo").addEventListener("click", function () {
+        window.open("/");
+    });
+
     // Set event listener to target 'Enter' keydown event, wchich by default submits the form
     htmlQuestionnaire.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
@@ -293,8 +298,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // Loop throught two dimensional array. Use first index only.
             for (let j = 0; j < answers.length; j++) {
                 html += `<div class="group">
-                <label for="answer${answerLoop}">${answers[j][0]}</label>
-                <input type="radio" id="answer${answerLoop}" name="answer${i}" value="${answers[j][0]}" onclick="clearFeedback()">
+                <div><label for="answer${answerLoop}">${answers[j][0]}</label></div>
+                <div><input type="radio" id="answer${answerLoop}" name="answer${i}" value="${answers[j][0]}" onclick="clearFeedback()"></div>
                 </div>`;
                 answerLoop++;
             }
