@@ -53,8 +53,12 @@ main {
 }
 
 section {
-    padding: 20px;
+    padding: 35px 20px;
     opacity: .7;
+}
+
+.center {
+    text-align: center;
 }
 
 .light-pink {
