@@ -122,7 +122,6 @@ button {
 
 #userAgeFeedback {
     display: none;
-    padding-bottom: 60px;
     color: rgb(23, 15, 15);
     line-height: 1.7;
 }
@@ -179,6 +178,7 @@ footer {
     font-size: .88em;
     text-align: center;
     background-color: #ffe6a7;
-    padding: 10px 15px;
+    margin-top: 50px;;
+    padding: 20px 15px;
     color: rgb(23, 15, 15);
 }
