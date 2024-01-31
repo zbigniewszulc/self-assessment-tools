@@ -471,6 +471,7 @@ function displayResult(event) {
 
     html += `<p>Recommendation: ${recommendation[scoreIteration][1]}</p>`;
 
+    scoreSection.style.display = "block";
     scoreSection.innerHTML = html;
 }
 
