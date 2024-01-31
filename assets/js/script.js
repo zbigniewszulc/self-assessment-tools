@@ -184,6 +184,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 userAgeFeedback.innerHTML = responseFromCaniProceed;
             }
 
+            document.getElementById("return-btn").innerHTML = getReturnButton();
+
             // Attach event listener to user age form
             ageForm.addEventListener("submit", function (event) {
                 // this is one of the way of passing two arguments (inlcuding 'event') to call back function
@@ -217,9 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
      * @returns html - HTML snipppet
      */
     function userAgeForm() {
-        let html = "";
-
-        html = `
+        let html = `
         <form id="ageForm">
           <label for="age">What is your age?</label>
           <input type="number" id="age" name="age" min="0" max="100" required>
@@ -395,6 +395,7 @@ function formSubmit(event) {
         collectAnswers(event);
         htmlQuestionnaire.style.display = "none";
         displayResult(event);
+        document.getElementById("return-btn").innerHTML = getHomeButton();
     } else {
         requestAnswer();
     }
@@ -540,6 +541,18 @@ function getRecommendations(formId) {
 
     return recommendation;
 }
+
+function getReturnButton() {
+    let html = `<button class="brown" onclick="history.back()"><i class="fa-solid fa-rotate-left fa-lg"></i>Return</button>`;
+
+    return html;
+}
+
+function getHomeButton() {
+    let html = `<button class="brown" onclick="window.location = '/' "><i class="fa-solid fa-house fa-lg"></i>Home</button>`;
+    return html;
+}
+
 
 /**
  * Clear 'htmlQuestionnaire' section
