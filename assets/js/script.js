@@ -110,7 +110,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Set event listener to target logo, when pressed it opens landing page
     document.getElementById("logo").addEventListener("click", function () {
-        window.open("/");
+        window.location = "https://zbigniewszulc.github.io/self-assessment-tools/";
+    });
+
+    // Assign an event listener to change the cursor to a pointer on mouseover
+    document.getElementById("logo").addEventListener("mouseover", function () {
+        this.style.cursor = "pointer";
     });
 
     // Set event listener to target 'Enter' keydown event, wchich by default submits the form
