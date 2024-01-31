@@ -32,7 +32,7 @@ a {
 
 i {
     text-align: center;
-    padding: 25px;
+    padding: 35px;
 }
 
 /* Header */
@@ -50,11 +50,12 @@ main {
     /* Enable flex properties for child elements */
     display: flex;
     flex-direction: column;
+    background-color: rgb(239, 211, 211);
+    opacity: .92;
 }
 
 section {
     padding: 35px 20px;
-    opacity: .7;
 }
 
 .center {
@@ -102,6 +103,11 @@ button {
     color: rgb(245, 241, 241);
 }
 
+button i {
+    /* text-align: center; */
+    padding: 10px;
+}
+
 .buttons {
     display: flex;
 }
@@ -134,7 +140,11 @@ button {
 .group {
     display: flex;
     justify-content: space-evenly;
-    margin: 15px 5px;
+    margin: 20px 10%;
+}
+
+form p {
+    text-align: center;
 }
 
 #score {
@@ -145,8 +155,8 @@ button {
     padding-top: 40px;
 }
 
-.opacity9 {
-    opacity: .9;
+.opacity1 {
+    opacity: 1;
 }
 
 .white-bg {
@@ -181,7 +191,7 @@ button {
     cursor: pointer;
 }
 
-#return-btn{
+#return-btn {
     display: none;
     padding: 10px;
 }
@@ -194,4 +204,33 @@ footer {
     background-color: #ffe6a7;
     padding: 30px 15px;
     color: rgb(23, 15, 15);
+}
+
+
+/* Media query: tablets and larger (768px and up) */
+@media screen and (min-width: 768px) {
+
+    /* Header */
+    header {
+        padding: 70px;
+    }
+
+    /* Main */
+    main {
+        margin: 0 12vw;
+    }
+
+    /* Section */
+    section {
+        padding: 50px 30px;
+    }
+
+    .group {
+        margin: 25px 25%;
+    }
+
+    footer {
+        font-size: 1.1em;
+    }
+
 }
