@@ -40,7 +40,7 @@ i {
 header {
     display: flex;
     flex-direction: column;
-    padding: 30px;
+    padding: 50px;
     background-color: rgb(138, 93, 93);
 }
 
@@ -53,9 +53,9 @@ header h1 {
 #logo {
     position: absolute;
     float: left;
-    height: 90px;
+    height: 140px;
     top: 9px;
-    right: 7px;
+    right: 13px;
     z-index: 0;
 }
 
@@ -66,8 +66,7 @@ main {
     /* Enable flex properties for child elements */
     display: flex;
     flex-direction: column;
-    /* background-color: rgb(239, 211, 211); */
-    opacity: .92;
+    margin-bottom: 20%;
 }
 
 
@@ -114,10 +113,11 @@ form h2 {
 
 #ageForm input {
     display: block;
-    margin: 20px auto 20px auto;
+    margin: 20px auto 45px auto;
     min-width: 88px;
     text-align: center;
-    padding: 10px 2px 10px 2px;
+    padding: 15px;
+    transform: scale(1.6);
 }
 
 button {
@@ -269,6 +269,7 @@ footer {
     /* Header */
     header {
         padding: 70px;
+        font-size: larger;
     }
 
     header h1 {
@@ -277,14 +278,14 @@ footer {
     }
 
     #logo {
-        height: 140px;
+        height: 240px;
         top: 25px;
         right: 45px;
     }
 
     /* Main */
     main {
-        margin: 0 12vw;
+        margin: 0 12vw 10vh;
     }
 
     footer {
@@ -294,18 +295,23 @@ footer {
 }
 
 /* Large devices (laptops and desktops, 992px and up) */
-@media screen and (min-width: 992px) {}
+@media screen and (min-width: 992px) {
+    section {
+        max-width: 750px;
+    }
+}
 
 /* Large devices (laptops and desktops, 1280px and up) */
 @media screen and (min-width: 1280px) {
 
     header {
         padding: 70px 120px;
+        font-size:x-large;
     }
 
     #logo {
-        height: 180px;
-        top: 19px;
+        height: 290px;
+        top: 25px;
         right: 150px;
     }
 
