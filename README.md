@@ -1,110 +1,135 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
-Welcome USER_NAME,
+<p align="center"><img src="assets/images/mw_logo_trans.webp" height="120"></p>
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+<h1 align="center">Mental Health Screening Tools</h1>
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+[View the live project here.](https://zbigniewszulc.github.io/self-assessment-tools/)
 
-## Gitpod Reminders
+ 
+The mental self-assessment online tools were designed to assist people who would like to evaluate the severity of their depression and anxiety symptoms. The website offers two test questionnaires assessing depression and anxiety disorders:
+ 
+               1) PHQ-9 Depression Patient Health Test Questionnaire
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+               2) GAD-7 General Anxiety Disorder Test Questionnaire
+  
+After completing each test, the website promptly delivers a personalised result along with tailored recommendations for the user.
 
-`python3 -m http.server`
+It's crafted for responsiveness and accessibility across various devices, ensuring seamless navigation and user-friendly simplicity.
+ 
 
-A blue button should appear to click: _Make Public_,
+![Responsive Website](/assets/images/md-files/amireponsive.png)
 
-Another blue button should appear to click: _Open Browser_.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+## Features
+ 
+-   ### The landing page 
+    The landing page introduces the user to a mental self-assessment website and provides a brief description of the website’s aim. The user has an option to take each of two questionnaires and upon clicking on a link, a questionnaire will open. The disclaimer note is displayed in the footer section.
+ 
+    ![Landing Page](/assets/images/md-files/landing-page.png)
+ 
+-   ### PHQ-9 Depression Patient Health Test Questionnaire
+    Upon clicking on the link on the landing page, the questionnaire will open and the user will be asked to provide his/her age. The questionnaire is designed for people 13 years and older. If the age provided by the user is below 13, a feedback message will appear suggesting a different questionnaire. Upon providing an acceptable age, the user will be presented with 9 questions displayed on individual screens. An answer must be selected in each screen to process to the next question. A test score, severity of the symptoms and a recommendation will be provided at the end of the questionnaire.  The user can click on the Home button or the 'Flower' logo to return to the landing page.
 
-A blue button should appear to click: _Make Public_,
+    ![PHQ-9 Questionnaire](/assets/images/md-files/phq-9.png)
+ 
+-   ### GAD-7 General Anxiety Disorder Test Questionnaire
+    Upon clicking on the link on the landing page, the questionnaire will open and the user will be asked to provide his/her age. The questionnaire is designed for people 12 years and older. If the age provided by the user is below 12, a feedback message will appear suggesting a different questionnaire. Upon providing an acceptable age, the user will be presented with 7 questions displayed on individual screens. An answer must be selected in each screen to process to the next question. A test score, severity of the symptoms and a recommendation will be provided at the end of the questionnaire.  The user can click on the Home button or the Flower logo to return to the landing page.
+ 
+    ![GAD-7 Questionnaire](/assets/images/md-files/gad-7.png)
+ 
+- ### Home button
+    “Home” button features on all questionnaire pages, allowing the user to easily navigate between pages across all devices without the need to revert back to the previous page via the “back” button. 
 
-Another blue button should appear to click: _Open Browser_.
+    <p align="center"><img src="assets/images/md-files/home-btn.png"></p>
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+- ### 5 The Flower - home button
+    The flower icon placed in the upper right corner incorporates a concealed home button which upon clicking redirects the user back to the landing page. A pointer cursor will appear when the mouse hovers over the flower icon.    
+  
+    <p align="center"><img src="assets/images/md-files/logo-flower.png" height="130"></p>
 
-To log into the Heroku toolbelt CLI:
+-   ### Footer
+    The footer disclaimer note appears on all pages reminding the user that the aim of the website is to guide and not to replace a formal medical consultation.
+ 
+    <p align="center"><img src="assets/images/md-files/disclaimer.png" height="130"></p>
+ 
+-   ### Age feedback
+    An age feedback function is included at the beginning of each questionnaire. The aim of the function is to prevent people under a certain age from accessing the questionnaires and provide an alternative screening options, including links to other resources. Additionally, the user will receive a notification if the age box is left empty.   
+ 
+    <p align="center"><img src="assets/images/md-files/your-age-please.png" height="380"></p>
+ 
+-   ### Questionnaire validation
+    Each questionnaire is protected with Java script code preventing the user from leaving questions unanswered, i.e. an answer must be selected in each screen to process to the next question.  
+ 
+    <p align="center"><img src="assets/images/md-files/validation.png" height="500"></p>
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+-   ### Navigation buttons
+    The “Next” and “Previous” buttons are displayed at the bottom of each questionnaire page giving the user an option to move between questions.
+ 
+    <p align="center"><img src="assets/images/md-files/nav-buttons.png"></p>
+ 
+-   ### Multistep form
+    A multistep form has been chosen to simplify the lengthy forms making it less overwhelming for the user. It follows a linear progression where the user moves from one step to the next in a sequential order.
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+ 
+ 
+## Testing 
+ 
+During the development process I encountered various bugs and performance related problems and conducted a substantial number of testing. 
+ 
+- ### Goals / Features
+    In my opinion all features of the page work as intended, achieving the goals of the project i.e. provide the user with a depression and/or anxiety screening tool and a recommendation based on the answers given in the tests.
+ 
+ 
+1)  **Landing page**  -   The text description is displayed evenly on the page and in a way it was intended to. 
+The color background is displayed correctly and evenly with the recommended level of contrast with accessibility in mind. The links to access both questionnaires are working correctly.
+ 
+2)  **Test Questionnaires** - Both questionnaires work correctly. Questions and answers are displayed as intended. Answers validation function prevents the user from skipping questions. The “Next”, “Previous” and “Home” buttons work as designed. The last page provides a calculated score based on answers given. The result description and recommendation text is displayed correctly.
+ 
+3)  **Home button and Flower logo** - The home button and the flower logo are displayed identically on all pages. Upon clicking on the home button or the flower logo icon in the right upper corner of the page, the user is redirected to the landing page. 
+ 
+4)  **Footer** - The text is displayed evenly and identically on all pages.  
+ 
+5)  **Age feedback** - The interactive feedback works correctly by notifying the user if the age box is left empty. Additionally, if the age given by the user is below required threshold, a feedback message will appear suggesting a different questionnaire.
+ 
+ 
+ - ### Validation 
 
-------
+    - HTML
+      - Validation Tool used: https://validator.w3.org/
+      - No errors were found during the initial validation check. However, a total of 8 warnings were identified, all suggesting consideration of using the `<h1>` element as a top-level heading. These warnings stem from the semantic structure employed in the code. They are not critical issues and do not hinder the proper functioning of the webpage as intended.
+    ![HTML Validation](/assets/images/md-files/htmlValidation.png)
 
-## Release History
+    - Accessiblity validation 
+    - Tool used: https://wave.webaim.org and Lighthouse
+    - Result: no errors and no recommendations
+  ![Wave  Validation](/assets/images/md-files/wave-validation.png)
+  ![Lighthouse](assets/images/md-files/lighhouse.png)
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+    - CSS
+      - Validation Tool used: https://validator.w3.org/
+      - The CSS validation process did not yield any errors upon the initial attempt.
+  ![CSS Validation](assets/images/md-files/css-validation.png)
 
-**September 20 2023:** Update Python version to 3.9.17.
+    - JavaScript
+      - Validation Tools used: https://jshint.com and https://esprima.org/
+      - *Esprima* did not find any mistakes and errors
+  ![Esprima Validator](/assets/images/md-files/esprima-validator.png) 
+      - *JSHint* did not throw any serious errors in JavaScript code. There are however 3 recommendations: two relates to misleading line break and one referring to functions decalred within loops referencing an outer scoped variable. I have made an attempt to move some functions and variables withing a scope of calling function however the website stopped working correctly. I have reversed the changes back to working state. The misleading line brake is caused by Prettier plugin installed in VS Code - this is not an issue. 
+ ![JS Hint Validator](/assets/images/md-files/jshint-validation.png)
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+- ### Cross-browser testing
+  - Online tool used: https://www.browserling.com/browse/win10/vivaldi6.4/https://zbigniewszulc.github.io/self-assessment-tools/
+  - Result: no anomalies. All browsers display the content as expected. All website functionality is in place and working correctly.
+ 
+ 
+## Deployment
+  - Procedure for implementing the source code into GitHub Pages:
+     1) Log in to GitHub at https://github.com.
+     2) Navigate to the project repository. Usually, after logging in, it should be visible in the "Top Repositories" section without the need for further navigation. If not, repositories can always be viewed by clicking on avatar and selecting the "Your repositories" option"
+     3) After selecting the repository, find the settings button and go to the Pages tab
+     4) Make sure the source section is marked “deploy from a branch” and branch to “main” in the root folder. Press the “Save” button.
+     5) This is it. A link for the online page should appear after a minute.
+ 
+## Credits
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
-
-**July 2 2021:** Remove extensions that are not available in Open VSX.
-
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
-
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
-
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
-
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
-
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+I sourced my knowledge for creating this website primarily from materials provided by the Code Institute for study purposes. Another resource I frequently consulted was W3Schools. During more challenging moments, I turned to ChatGPT to understand why some of my code snippets weren't functioning as expected.
