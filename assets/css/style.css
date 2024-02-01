@@ -50,6 +50,10 @@ header h1 {
     padding-right: 55px;
 }
 
+aside {
+    display: none;
+}
+
 #logo {
     position: absolute;
     float: left;
@@ -60,7 +64,7 @@ header h1 {
 }
 
 #logo:hover {
-transform: scale(1.08);
+    transform: scale(1.08);
 }
 
 /* Main content */
@@ -70,9 +74,12 @@ main {
     /* Enable flex properties for child elements */
     display: flex;
     flex-direction: column;
-    margin-bottom: 20%;
+    margin-bottom: 10%;
 }
 
+aside {
+    background: url("../images/face.png") no-repeat center center/cover;
+}
 
 section {
     padding: 35px 20px;
@@ -291,9 +298,9 @@ footer {
     }
 
     /* Main */
-    main {
+    /* main {
         margin: 0 12vw 10vh;
-    }
+    } */
 
     footer {
         font-size: 1.1em;
@@ -311,6 +318,23 @@ footer {
 /* Large devices (laptops and desktops, 1280px and up) */
 @media screen and (min-width: 1280px) {
 
+    main {
+        flex-direction: row;
+        margin: 0;
+    }
+
+    #mainContent {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 75px;
+        margin-top: 35px;
+    }
+
+    aside {
+        display: inline-block;
+        width: 45%;
+    }
+
     header {
         padding: 70px 120px;
         font-size: x-large;
@@ -325,5 +349,4 @@ footer {
     #htmlQuestionnaire h1 {
         margin: 30px 100px;
     }
-
 }
