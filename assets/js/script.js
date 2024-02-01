@@ -264,12 +264,12 @@ document.addEventListener("DOMContentLoaded", function () {
             let minAge = 13;
             return userAge >= minAge
                 ? true
-                : `Based on the provided details, your age is ${userAge}. If it is incorrect amend your age accordingly. Please be aware that this questionnaire is intended for individuals ${minAge} years and older. You can try the <a href="https://changes.ie/wp-content/uploads/2022/02/Patient-Health-Questionnaire-Adult-PHQ-9.pdf" target="_blank" rel="noopener noreferrer">PHQ-A questionnaire for adolescents</a> for more suitable options.`;
+                : `Based on the provided details, your age is <strong> ${userAge} </strong>. If it is incorrect amend your age accordingly. Please be aware that this questionnaire is intended for individuals <strong> ${minAge} </strong> years and older. You can try the <a href="https://changes.ie/wp-content/uploads/2022/02/Patient-Health-Questionnaire-Adult-PHQ-9.pdf" target="_blank" rel="noopener noreferrer">PHQ-A questionnaire for adolescents</a> for more suitable options.`;
         } else if (questionnaireId === "gad7") {
             let minAge = 12;
             return userAge >= minAge
                 ? true
-                : `Based on the provided details, your age is ${userAge}. If it is incorrect amend your age accordingly. Please be aware that this questionnaire is intended for individuals ${minAge} years and older. For more information, you can visit <a href='https://mentalhealth.ie/generalised-anxiety-disorder' target='_blank' rel='noopener noreferrer'>this link</a>.`;
+                : `Based on the provided details, your age is <strong> ${userAge} </strong>. If it is incorrect amend your age accordingly. Please be aware that this questionnaire is intended for individuals <strong> ${minAge} </strong> years and older. For more information, you can visit <a href='https://mentalhealth.ie/generalised-anxiety-disorder' target='_blank' rel='noopener noreferrer'>this link</a>.`;
         } else {
             return "Error occured within handle age submit form. Form clicked is not defined";
         }
