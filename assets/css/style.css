@@ -75,6 +75,8 @@ main {
     display: flex;
     flex-direction: column;
     margin-bottom: 10%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 aside {
@@ -296,11 +298,6 @@ footer {
         right: 45px;
     }
 
-    /* Main */
-    /* main {
-        margin: 0 12vw 10vh;
-    } */
-
     footer {
         font-size: 1.1em;
     }
@@ -309,6 +306,7 @@ footer {
 
 /* Large devices (laptops and desktops, 992px and up) */
 @media screen and (min-width: 992px) {
+
     section {
         max-width: 750px;
     }
