@@ -59,6 +59,10 @@ header h1 {
     z-index: 0;
 }
 
+#logo:hover {
+transform: scale(1.08);
+}
+
 /* Main content */
 main {
     /* Enlarge main element to push footer down*/
@@ -97,8 +101,8 @@ section {
     text-decoration: underline;
 }
 
-.questionnaires:hover {
-    transform: scale(1.1);
+.hover:hover {
+    transform: scale(1.05);
 }
 
 form {
@@ -131,7 +135,7 @@ button {
 }
 
 button:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 button i {
@@ -186,9 +190,6 @@ form p {
     padding-top: 40px;
 }
 
-.opacity1 {
-    opacity: 1;
-}
 
 .white-bg {
     background-color: rgb(245, 241, 241);
@@ -229,7 +230,7 @@ form p {
 
 #htmlQuestionnaire .buttons {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     max-width: 500px;
 }
 
@@ -244,7 +245,7 @@ footer {
     font-size: .88em;
     text-align: center;
     /* background-color: #ffe6a7; */
-    background-color: rgb(232, 179, 179); 
+    background-color: rgb(232, 179, 179);
     padding: 30px 15px;
     color: rgb(23, 15, 15);
 }
@@ -254,6 +255,12 @@ footer {
 
     header h1 {
         padding: 40px 60px;
+    }
+
+    #logo {
+        height: 160px;
+        top: 20px;
+        right: 20px;
     }
 
     section {
@@ -306,7 +313,7 @@ footer {
 
     header {
         padding: 70px 120px;
-        font-size:x-large;
+        font-size: x-large;
     }
 
     #logo {
