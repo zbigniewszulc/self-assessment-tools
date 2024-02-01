@@ -92,7 +92,6 @@ let userAge = -1;
 // Declare age related variables
 let ageForm;
 let userAgeFeedback;
-let ageProvided = false;
 
 // Declare array for user answers
 let userResponses = [];
