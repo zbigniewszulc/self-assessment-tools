@@ -50,10 +50,10 @@ header h1 {
     padding-right: 55px;
 }
 
-header img {
+#logo {
     position: absolute;
     float: left;
-    height: 80px;
+    height: 90px;
     top: 9px;
     right: 7px;
     z-index: 0;
@@ -98,6 +98,10 @@ section {
     text-decoration: underline;
 }
 
+.questionnaires:hover {
+    transform: scale(1.1);
+}
+
 form {
     line-height: 2.3em;
     text-align: center;
@@ -119,15 +123,18 @@ form h2 {
 button {
     cursor: pointer;
     display: block;
-    min-width: 90px;
-    padding: 10px 20px;
+    width: 135px;
+    padding: 18px 30px;
     border: none;
     margin: 15px auto;
     color: rgb(245, 241, 241);
 }
 
+button:hover {
+    transform: scale(1.1);
+}
+
 button i {
-    /* text-align: center; */
     padding: 10px;
 }
 
@@ -155,9 +162,10 @@ button i {
 }
 
 .feedback {
-    color: brown;
+    color: rgb(188, 36, 36);
     padding: 15px 0;
     font-weight: 600;
+    transform: scale(1.2);
 }
 
 .group {
@@ -213,16 +221,15 @@ form p {
 }
 
 #htmlQuestionnaire input[type="radio"] {
-    width: 18px;
-    height: 18px;
+    width: 23px;
+    height: 23px;
     cursor: pointer;
+    accent-color: rgb(138, 93, 93);
 }
 
 #htmlQuestionnaire .buttons {
     display: flex;
     justify-content:space-between;
-    /* margin-left: auto;
-    margin-right: auto; */
     max-width: 500px;
 }
 
@@ -236,7 +243,8 @@ footer {
     font-family: 'Fjalla One', sans-serif;
     font-size: .88em;
     text-align: center;
-    background-color: #ffe6a7;
+    /* background-color: #ffe6a7; */
+    background-color: rgb(232, 179, 179); 
     padding: 30px 15px;
     color: rgb(23, 15, 15);
 }
@@ -268,8 +276,8 @@ footer {
         padding-left: 40px;
     }
 
-    header img {
-        height: 110px;
+    #logo {
+        height: 140px;
         top: 25px;
         right: 45px;
     }
@@ -295,8 +303,8 @@ footer {
         padding: 70px 120px;
     }
 
-    header img {
-        height: 110px;
+    #logo {
+        height: 180px;
         top: 19px;
         right: 150px;
     }
