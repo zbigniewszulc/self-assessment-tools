@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Set click event listener on the questionnaires
         questionnaire.addEventListener("click", function () {
             //target questionnaire id
-            let questionnaireId = this.getAttribute("id");
+            let questionnaireId = this.children[1].getAttribute("id");
             //clear sections
             clearHtmlQuestionnaire();
             clearScoreSection();
